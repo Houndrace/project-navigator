@@ -1,5 +1,6 @@
 ﻿using System.Windows;
 using Microsoft.Extensions.DependencyInjection;
+using project_navigator.services;
 using project_navigator.view_models.pages;
 using project_navigator.views.pages;
 using project_navigator.views.windows;
@@ -11,7 +12,7 @@ namespace project_navigator;
 /// </summary>
 public partial class App : Application
 {
-    private readonly ServiceProvider _serviceProvider;
+    private readonly IServiceProvider _serviceProvider;
 
     private App()
     {
@@ -19,8 +20,13 @@ public partial class App : Application
 
         serviceCollection.AddSingleton<MainWindow>();
 
+        serviceCollection.AddSingleton<INavService, NavService>();
+        serviceCollection.AddSingleton<IHashService, HashService>();
+
         serviceCollection.AddTransient<AuthorizationPage>();
         serviceCollection.AddTransient<AuthorizationViewModel>();
+
+        //serviceCollection.AddDbContext<>()
 
         _serviceProvider = serviceCollection.BuildServiceProvider();
     }

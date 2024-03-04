@@ -13,7 +13,7 @@ using System.Reflection;
 [assembly: System.Reflection.AssemblyCompanyAttribute("project-navigator")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Debug")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+987b174f9c738fef0197968b568c95d4f523f562")]
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+33e0b0ef940de04299b332d3775cd0bcc26f8be8")]
 [assembly: System.Reflection.AssemblyProductAttribute("project-navigator")]
 [assembly: System.Reflection.AssemblyTitleAttribute("project-navigator")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]

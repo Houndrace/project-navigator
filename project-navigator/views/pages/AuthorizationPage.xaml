@@ -9,10 +9,45 @@
       Title="AuthorizationPage"
       d:DataContext="{d:DesignInstance local:AuthorizationPage,
                                      IsDesignTimeCreatable=False}"
-      d:DesignHeight="450"
-      d:DesignWidth="800"
+      d:DesignHeight="650"
+      d:DesignWidth="1000"
       ui:Design.Background="{DynamicResource ApplicationBackgroundBrush}"
       ui:Design.Foreground="{DynamicResource TextFillColorPrimaryBrush}"
       Foreground="{DynamicResource TextFillColorPrimaryBrush}">
-    <Grid />
+    <Grid>
+        <ui:Card VerticalAlignment="Center"
+                 HorizontalAlignment="Center"
+                 Padding="30">
+            <StackPanel Width="340">
+                <StackPanel Orientation="Vertical"
+                            Margin="0 0 0 62">
+                    <!-- TODO:добавить лого -->
+                    <ui:TextBlock Width="120"
+                                  Height="120"
+                                  Foreground="Black"
+                                  Background="Wheat"
+                                  HorizontalAlignment="Center"
+                                  Margin="0 0 0 8">
+                        LOGO
+                    </ui:TextBlock>
+                    <ui:TextBlock HorizontalAlignment="Center"
+                                  FontTypography="Title">
+                        Навигатор проектов
+                    </ui:TextBlock>
+                </StackPanel>
+                <ui:TextBox PlaceholderText="Имя пользователя"
+                            Text="{Binding ViewModel.Username, Mode=OneWayToSource}"
+                            Margin="0 0 0 24" />
+                <ui:PasswordBox PlaceholderText="Пароль"
+                                Password="{Binding ViewModel.Password, Mode=OneWayToSource}"
+                                Margin="0 0 0 48" />
+                <ui:Button Appearance="Primary"
+                           HorizontalAlignment="Stretch"
+                           Command="{Binding ViewModel.AuthorizeCommand}">
+                    Войти
+                </ui:Button>
+            </StackPanel>
+        </ui:Card>
+
+    </Grid>
 </Page>

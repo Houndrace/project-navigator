@@ -7,10 +7,10 @@ public partial class AuthorizationPage : Page
 {
     public AuthorizationPage(AuthorizationViewModel viewModel)
     {
+        InitializeComponent();
+
         ViewModel = viewModel;
         DataContext = this;
-
-        InitializeComponent();
     }
 
     public AuthorizationViewModel ViewModel { get; }

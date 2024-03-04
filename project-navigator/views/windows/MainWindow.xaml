@@ -17,8 +17,14 @@
                  WindowStartupLocation="CenterScreen"
                  ExtendsContentIntoTitleBar="True"
                  WindowBackdropType="Mica">
-    <StackPanel>
-        <ui:TitleBar />
-        <Frame />
-    </StackPanel>
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto" />
+            <RowDefinition />
+        </Grid.RowDefinitions>
+
+        <ui:TitleBar Grid.Row="0" />
+        <Frame Grid.Row="1"
+               Name="RootFrame" />
+    </Grid>
 </ui:FluentWindow>
