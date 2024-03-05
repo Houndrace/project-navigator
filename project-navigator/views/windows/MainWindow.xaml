@@ -1,4 +1,4 @@
-﻿<!-- TODO: перенести в переменную -->
+﻿<!-- TODO: перенести в переменную название проекта-->
 <ui:FluentWindow x:Class="project_navigator.views.windows.MainWindow"
                  xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
                  xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"

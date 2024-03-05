@@ -21,6 +21,16 @@ docs/api/
 # IntelliJ IDEA files
 .idea
 
+.vs/
+[Bb]in/
+[Oo]bj/
+_UpgradeReport_Files/
+[Pp]ackages/
+
+Thumbs.db
+Desktop.ini
+.DS_Store
+
 # Mono auto generated files
 mono_crash.*
 
