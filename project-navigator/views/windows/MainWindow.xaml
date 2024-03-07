@@ -12,8 +12,8 @@
                  Height="{StaticResource DefaultScreenHeight}"
                  MinHeight="{StaticResource MinScreenHeight}"
                  MinWidth="{StaticResource MinScreenWidth}"
-                 d:DesignHeight="{StaticResource DesignHeight}"
-                 d:DesignWidth="{StaticResource DesignWidth}"
+                 d:DesignHeight="600"
+                 d:DesignWidth="1200"
                  WindowStartupLocation="CenterScreen"
                  ExtendsContentIntoTitleBar="True">
     <Grid>

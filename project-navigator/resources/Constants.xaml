@@ -9,8 +9,5 @@
     <system:Double x:Key="MinScreenWidth">900</system:Double>
     <system:Double x:Key="MinScreenHeight">600</system:Double>
 
-    <system:Double x:Key="DesignWidth">1200</system:Double>
-    <system:Double x:Key="DesignHeight">600</system:Double>
-
     <SolidColorBrush x:Key="LogoColor">#2d79c7</SolidColorBrush>
 </ResourceDictionary>
