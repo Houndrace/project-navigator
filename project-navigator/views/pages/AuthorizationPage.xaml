@@ -9,8 +9,8 @@
       Title="AuthorizationPage"
       d:DataContext="{d:DesignInstance local:AuthorizationPage,
                                      IsDesignTimeCreatable=False}"
-      d:DesignHeight="650"
-      d:DesignWidth="1000"
+      d:DesignHeight="{StaticResource DesignHeight}"
+      d:DesignWidth="{StaticResource DesignWidth}"
       ui:Design.Background="{DynamicResource ApplicationBackgroundBrush}"
       ui:Design.Foreground="{DynamicResource TextFillColorPrimaryBrush}"
       Foreground="{DynamicResource TextFillColorPrimaryBrush}">

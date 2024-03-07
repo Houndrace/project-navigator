@@ -1,0 +1,16 @@
+<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+                    xmlns:system="clr-namespace:System;assembly=System.Runtime">
+    <system:String x:Key="ProjectName">Навигатор Проектов</system:String>
+
+    <system:Double x:Key="DefaultScreenWidth">1440</system:Double>
+    <system:Double x:Key="DefaultScreenHeight">900</system:Double>
+
+    <system:Double x:Key="MinScreenWidth">900</system:Double>
+    <system:Double x:Key="MinScreenHeight">600</system:Double>
+
+    <system:Double x:Key="DesignWidth">1200</system:Double>
+    <system:Double x:Key="DesignHeight">600</system:Double>
+
+    <SolidColorBrush x:Key="LogoColor">#2d79c7</SolidColorBrush>
+</ResourceDictionary>
