@@ -27,10 +27,13 @@ public partial class App : Application
 
         serviceCollection.AddSingleton<INavService, NavService>();
         serviceCollection.AddSingleton<IHashService, HashService>();
+        serviceCollection.AddSingleton<IUserService, UserService>();
         serviceCollection.AddSingleton<ISnackbarService, SnackbarService>();
 
         serviceCollection.AddTransient<AuthorizationPage>();
         serviceCollection.AddTransient<AuthorizationViewModel>();
+        serviceCollection.AddTransient<HomePage>();
+        serviceCollection.AddTransient<HomeViewModel>();
 
         _serviceProvider = serviceCollection.BuildServiceProvider();
     }
