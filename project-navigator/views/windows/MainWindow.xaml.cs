@@ -1,4 +1,6 @@
-﻿using project_navigator.services;
+﻿using System.Windows;
+using System.Windows.Media;
+using project_navigator.services;
 using project_navigator.views.pages;
 using Wpf.Ui;
 using Wpf.Ui.Appearance;
@@ -21,5 +23,8 @@ public partial class MainWindow : FluentWindow
         snackbarService.SetSnackbarPresenter(SnackbarPresenter);
 
         ApplicationThemeManager.ApplySystemTheme();
+        var logoColor = (SolidColorBrush?)Application.Current.Resources["LogoColor"];
+        if (logoColor != null)
+            ApplicationAccentColorManager.Apply(logoColor.Color);
     }
 }

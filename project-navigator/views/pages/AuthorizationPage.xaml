@@ -5,6 +5,7 @@
       xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
       xmlns:local="clr-namespace:project_navigator.views.pages"
       xmlns:ui="http://schemas.lepo.co/wpfui/2022/xaml"
+      xmlns:common="clr-namespace:project_navigator.views.common"
       mc:Ignorable="d"
       Title="AuthorizationPage"
       d:DataContext="{d:DesignInstance local:AuthorizationPage,
@@ -19,28 +20,22 @@
                  HorizontalAlignment="Center"
                  Padding="30">
             <StackPanel Width="340">
-                <StackPanel Orientation="Vertical"
-                            Margin="0 0 0 62">
-                    <!-- TODO:добавить лого -->
-                    <ui:TextBlock Width="120"
-                                  Height="120"
-                                  Foreground="Black"
-                                  Background="Wheat"
-                                  HorizontalAlignment="Center"
-                                  Margin="0 0 0 8">
-                        LOGO
-                    </ui:TextBlock>
-                    <ui:TextBlock HorizontalAlignment="Center"
-                                  FontTypography="Title">
-                        Навигатор проектов
-                    </ui:TextBlock>
-                </StackPanel>
+                <common:Logo Width="60"
+                             Height="60"
+                             Margin="0 0 0 16" />
+
+                <ui:TextBlock HorizontalAlignment="Center"
+                              FontTypography="Subtitle"
+                              Margin="0 0 0 32">
+                    Навигатор проектов
+                </ui:TextBlock>
+
                 <ui:TextBox PlaceholderText="Имя пользователя"
                             Text="{Binding ViewModel.Username, Mode=OneWayToSource}"
                             Margin="0 0 0 24" />
                 <ui:PasswordBox PlaceholderText="Пароль"
                                 Password="{Binding ViewModel.Password, Mode=OneWayToSource}"
-                                Margin="0 0 0 48" />
+                                Margin="0 0 0 24" />
                 <ui:Button Appearance="Primary"
                            HorizontalAlignment="Stretch"
                            Command="{Binding ViewModel.AuthorizeCommand}">
