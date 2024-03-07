@@ -6,6 +6,7 @@ using project_navigator.services;
 using project_navigator.view_models.pages;
 using project_navigator.views.pages;
 using project_navigator.views.windows;
+using Wpf.Ui;
 
 namespace project_navigator;
 
@@ -26,6 +27,7 @@ public partial class App : Application
 
         serviceCollection.AddSingleton<INavService, NavService>();
         serviceCollection.AddSingleton<IHashService, HashService>();
+        serviceCollection.AddSingleton<ISnackbarService, SnackbarService>();
 
         serviceCollection.AddTransient<AuthorizationPage>();
         serviceCollection.AddTransient<AuthorizationViewModel>();
