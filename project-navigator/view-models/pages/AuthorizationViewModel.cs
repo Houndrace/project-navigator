@@ -1,6 +1,8 @@
 using System.ComponentModel.DataAnnotations;
+using System.Windows;
 using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
+using project_navigator.helpers;
 using project_navigator.services;
 using project_navigator.views.pages;
 using Wpf.Ui;
@@ -26,6 +28,8 @@ public partial class AuthorizationViewModel : ObservableValidator
     [MaxLength(50, ErrorMessage = "Максимальная длина пароля 50 знаков")]
     private string _password = "";
 
+    [ObservableProperty] private Visibility _progressBarVisibility = Visibility.Hidden;
+
     public AuthorizationViewModel(IUserService userService, INavService navService, ISnackbarService snackbarService)
     {
         _userService = userService;
@@ -34,44 +38,63 @@ public partial class AuthorizationViewModel : ObservableValidator
     }
 
     [RelayCommand]
-    private void Authorize()
+    private async Task<bool> Authorize()
     {
         ValidateAllProperties();
         if (HasErrors)
         {
-            // TODO:сделать надстройку над ObservableValidator
-            var errorMessages = new List<string?>();
-
-            var allErrors = GetErrors();
-            foreach (var propertyErrors in allErrors)
-                errorMessages.Add(propertyErrors.ErrorMessage);
-
-            var allErrorMessages = string.Join("\n", errorMessages);
-
-            _snackbarService.Show(
-                "Ошибка авторизации",
-                allErrorMessages,
-                ControlAppearance.Danger,
-                new SymbolIcon(SymbolRegular.ArrowSquareUpRight24),
-                TimeSpan.FromSeconds(5)
-            );
-            return;
+            DisplayError("Неверные данные", ConcatenatePropertyErrors());
+            return false;
         }
 
+        ShowProgressBar();
         try
         {
-            if (_userService.IsAuthorized(Username, Password))
-                _navService.Navigate<HomePage>();
+            await Task.Delay(TimeSpan.FromSeconds(5));
+            if (!await _userService.IsAuthorized(Username, Password))
+            {
+                DisplayError("Ошибка авторизации", "Неверное имя пользователя или пароль");
+                return false;
+            }
+
+            NavigateToHomePage();
         }
-        catch (InvalidOperationException e)
+        catch (Exception e)
         {
-            _snackbarService.Show(
-                "Ошибка",
-                e.Message,
-                ControlAppearance.Danger,
-                new SymbolIcon(SymbolRegular.ArrowSquareUpRight24),
-                TimeSpan.FromSeconds(5)
-            );
+            DisplayError("Ошибка", e.Message);
+            return false;
         }
+        finally
+        {
+            HideProgressBar();
+        }
+
+        return true;
+    }
+
+    private void ShowProgressBar()
+    {
+        ProgressBarVisibility = Visibility.Visible;
+    }
+
+    private void HideProgressBar()
+    {
+        ProgressBarVisibility = Visibility.Hidden;
+    }
+
+    private void NavigateToHomePage()
+    {
+        _navService.Navigate<HomePage>();
+    }
+
+    private void DisplayError(string title, string message)
+    {
+        _snackbarService.Show(title, message, ControlAppearance.Secondary,
+            new SymbolIcon(SymbolRegular.ErrorCircle24), TimeSpan.FromSeconds(5));
+    }
+
+    private string ConcatenatePropertyErrors()
+    {
+        return new ValidatorHelper().ConcatenateErrors(GetErrors());
     }
 }

@@ -18,29 +18,35 @@
     <Grid>
         <ui:Card VerticalAlignment="Center"
                  HorizontalAlignment="Center"
-                 Padding="30">
-            <StackPanel Width="340">
-                <common:Logo Width="60"
-                             Height="60"
-                             Margin="0 0 0 16" />
+                 Margin="0"
+                 Padding="0">
+            <StackPanel>
+                <StackPanel Margin="32"
+                            Width="340">
+                    <common:Logo Width="60"
+                                 Height="60"
+                                 Margin="0 0 0 16" />
 
-                <ui:TextBlock HorizontalAlignment="Center"
-                              FontTypography="Subtitle"
-                              Margin="0 0 0 32">
-                    Навигатор проектов
-                </ui:TextBlock>
+                    <ui:TextBlock HorizontalAlignment="Center"
+                                  FontTypography="Subtitle"
+                                  Margin="0 0 0 32">
+                        Навигатор проектов
+                    </ui:TextBlock>
 
-                <ui:TextBox PlaceholderText="Имя пользователя"
-                            Text="{Binding ViewModel.Username,  Mode=OneWayToSource, UpdateSourceTrigger=PropertyChanged, ValidatesOnNotifyDataErrors=False}"
-                            Margin="0 0 0 24" />
-                <ui:PasswordBox PlaceholderText="Пароль"
-                                Password="{Binding ViewModel.Password, Mode=OneWayToSource, UpdateSourceTrigger=PropertyChanged,ValidatesOnNotifyDataErrors=False}"
+                    <ui:TextBox PlaceholderText="Имя пользователя"
+                                Text="{Binding ViewModel.Username,  Mode=OneWayToSource, UpdateSourceTrigger=PropertyChanged, ValidatesOnNotifyDataErrors=False}"
                                 Margin="0 0 0 24" />
-                <ui:Button Appearance="Primary"
-                           HorizontalAlignment="Stretch"
-                           Command="{Binding ViewModel.AuthorizeCommand}">
-                    Войти
-                </ui:Button>
+                    <ui:PasswordBox PlaceholderText="Пароль"
+                                    Password="{Binding ViewModel.Password, Mode=OneWayToSource, UpdateSourceTrigger=PropertyChanged,ValidatesOnNotifyDataErrors=False}"
+                                    Margin="0 0 0 24" />
+                    <ui:Button Appearance="Primary"
+                               HorizontalAlignment="Stretch"
+                               Command="{Binding ViewModel.AuthorizeCommand}">
+                        Войти
+                    </ui:Button>
+                </StackPanel>
+                <ProgressBar IsIndeterminate="True"
+                             Visibility="{Binding ViewModel.ProgressBarVisibility}" />
             </StackPanel>
         </ui:Card>
 

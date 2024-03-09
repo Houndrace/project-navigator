@@ -1,3 +1,4 @@
+using Microsoft.EntityFrameworkCore;
 using project_navigator.db;
 using project_navigator.models;
 
@@ -5,7 +6,7 @@ namespace project_navigator.services;
 
 public interface IUserService
 {
-    public bool IsAuthorized(string userName, string password);
+    public Task<bool> IsAuthorized(string userName, string password);
     public void Register(RegistrationDto regDto);
 }
 
@@ -20,15 +21,13 @@ public class UserService : IUserService
         _dbContext = dbContext;
     }
 
-    public bool IsAuthorized(string userName, string password)
+    public async Task<bool> IsAuthorized(string userName, string password)
     {
-        var suggestedUser = _dbContext.Users.FirstOrDefault(user => user.UserName == userName);
+        if (string.IsNullOrEmpty(userName) || string.IsNullOrEmpty(password))
+            return false;
 
-        if (suggestedUser == null)
-            throw new InvalidOperationException("Пользователь с указанным именем не найден.");
-
-        var providedHashPassword = _hashService.HashString(password);
-        return suggestedUser.HashedPassword == providedHashPassword;
+        var suggestedUser = await _dbContext.Users.FirstOrDefaultAsync(user => user.UserName == userName);
+        return suggestedUser?.HashedPassword == _hashService.HashString(password);
     }
 
     public void Register(RegistrationDto regDto)
