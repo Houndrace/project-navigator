@@ -6,6 +6,7 @@
         <RootNamespace>project_navigator</RootNamespace>
         <Nullable>enable</Nullable>
         <ImplicitUsings>enable</ImplicitUsings>
+        <ApplicationManifest>app.manifest</ApplicationManifest>
         <UseWPF>true</UseWPF>
         <ApplicationIcon>project-navigator.ico</ApplicationIcon>
     </PropertyGroup>
