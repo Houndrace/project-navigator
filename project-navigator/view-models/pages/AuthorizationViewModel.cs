@@ -17,13 +17,13 @@ public partial class AuthorizationViewModel : ObservableValidator
     private readonly IUserService _userService;
 
     [ObservableProperty]
-    [Required(ErrorMessage = "Имя пользователя обязателено")]
+    [Required(ErrorMessage = "Необходимо ввести имя пользователя")]
     [MinLength(5, ErrorMessage = "Минимальная длина имени пользователя 5 знаков")]
     [MaxLength(40, ErrorMessage = "Максимальная длина имени пользователя 40 знаков")]
     private string _username = "";
 
     [ObservableProperty]
-    [Required(ErrorMessage = "Пароль обязателен")]
+    [Required(ErrorMessage = "Необходимо ввести пароль")]
     [MinLength(8, ErrorMessage = "Минимальная длина пароля 8 знаков")]
     [MaxLength(50, ErrorMessage = "Максимальная длина пароля 50 знаков")]
     private string _password = "";
@@ -48,16 +48,16 @@ public partial class AuthorizationViewModel : ObservableValidator
         }
 
         ShowProgressBar();
+        await Task.Delay(TimeSpan.FromSeconds(5));
         try
         {
-            await Task.Delay(TimeSpan.FromSeconds(5));
-            if (!await _userService.IsAuthorized(Username, Password))
+            if (!await _userService.Authorize(Username, Password))
             {
                 DisplayError("Ошибка авторизации", "Неверное имя пользователя или пароль");
                 return false;
             }
 
-            NavigateToHomePage();
+            _navService.Navigate<HomePage>();
         }
         catch (Exception e)
         {
@@ -80,11 +80,6 @@ public partial class AuthorizationViewModel : ObservableValidator
     private void HideProgressBar()
     {
         ProgressBarVisibility = Visibility.Hidden;
-    }
-
-    private void NavigateToHomePage()
-    {
-        _navService.Navigate<HomePage>();
     }
 
     private void DisplayError(string title, string message)

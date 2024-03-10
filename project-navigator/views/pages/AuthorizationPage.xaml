@@ -30,7 +30,7 @@
                     <ui:TextBlock HorizontalAlignment="Center"
                                   FontTypography="Subtitle"
                                   Margin="0 0 0 32">
-                        Навигатор проектов
+                        Вход Навигатор проектов
                     </ui:TextBlock>
 
                     <ui:TextBox PlaceholderText="Имя пользователя"
