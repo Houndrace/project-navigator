@@ -15,6 +15,7 @@ public partial class AuthorizationViewModel : ObservableValidator
     private readonly INavService _navService;
     private readonly ISnackbarService _snackbarService;
     private readonly IUserService _userService;
+    private CancellationTokenSource _cts = new();
 
     [ObservableProperty]
     [Required(ErrorMessage = "Необходимо ввести имя пользователя")]
@@ -48,16 +49,26 @@ public partial class AuthorizationViewModel : ObservableValidator
         }
 
         ShowProgressBar();
-        await Task.Delay(TimeSpan.FromSeconds(5));
         try
         {
-            if (!await _userService.Authorize(Username, Password))
+            await Task.Delay(TimeSpan.FromSeconds(5), _cts.Token);
+            if (!await _userService.Authorize(Username, Password, _cts.Token))
             {
                 DisplayError("Ошибка авторизации", "Неверное имя пользователя или пароль");
                 return false;
             }
 
             _navService.Navigate<HomePage>();
+        }
+        catch (TaskCanceledException e)
+        {
+            Console.WriteLine($"{e.Task} - {e.Message}");
+            return false;
+        }
+        catch (OperationCanceledException e)
+        {
+            Console.WriteLine($"Операция бд - {e.Message}");
+            return false;
         }
         catch (Exception e)
         {
@@ -75,6 +86,7 @@ public partial class AuthorizationViewModel : ObservableValidator
     [RelayCommand]
     private void NavigateToRegistration()
     {
+        _cts.Cancel();
         _navService.Navigate<RegistrationPage>();
     }
 

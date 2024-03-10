@@ -33,7 +33,7 @@
                     <ui:TextBlock HorizontalAlignment="Center"
                                   FontTypography="Subtitle"
                                   Margin="0 0 0 32">
-                        Регистрация аккаунтав
+                        Регистрация аккаунта
                     </ui:TextBlock>
 
                     <ui:TextBox PlaceholderText="Имя пользователя"
@@ -45,7 +45,7 @@
                     <ui:Button Appearance="Primary"
                                HorizontalAlignment="Stretch"
                                Command="{Binding ViewModel.RegisterCommand}">
-                        Войти
+                        Зарегистрировать
                     </ui:Button>
                 </StackPanel>
                 <ProgressBar IsIndeterminate="True"
