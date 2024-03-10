@@ -19,7 +19,7 @@
                     VerticalAlignment="Center">
             <ui:TextBlock FontTypography="Display">Вы успешно вошли!</ui:TextBlock>
             <ui:HyperlinkButton HorizontalAlignment="Right"
-                                Command="{Binding}">
+                                Command="{Binding ViewModel.NavigateToAuthorizationCommand}">
                 Вернуться ко входу
             </ui:HyperlinkButton>
 

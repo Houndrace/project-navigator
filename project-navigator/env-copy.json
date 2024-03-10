@@ -1,0 +1,5 @@
+{
+  "ConnectionStrings": {
+    "Db": "Server=localhost;Database=ProjectNavigator;Trusted_Connection=True;TrustServerCertificate=True;"
+  }
+}

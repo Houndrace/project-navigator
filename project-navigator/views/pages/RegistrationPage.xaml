@@ -1,4 +1,4 @@
-<Page x:Class="project_navigator.views.pages.AuthorizationPage"
+<Page x:Class="project_navigator.views.pages.RegistrationPage"
       xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
       xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
       xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
@@ -8,7 +8,7 @@
       xmlns:common="clr-namespace:project_navigator.views.common"
       mc:Ignorable="d"
       Title="AuthorizationPage"
-      d:DataContext="{d:DesignInstance local:AuthorizationPage,
+      d:DataContext="{d:DesignInstance local:RegistrationPage,
                                      IsDesignTimeCreatable=False}"
       d:DesignHeight="600"
       d:DesignWidth="1200"
@@ -23,6 +23,9 @@
             <StackPanel>
                 <StackPanel Margin="32"
                             Width="340">
+                    <ui:HyperlinkButton Command="{Binding ViewModel.NavigateToAuthorizationCommand}">
+                        <ui:SymbolIcon Symbol="ArrowLeft24" />
+                    </ui:HyperlinkButton>
                     <common:Logo Width="60"
                                  Height="60"
                                  Margin="0 0 0 16" />
@@ -30,7 +33,7 @@
                     <ui:TextBlock HorizontalAlignment="Center"
                                   FontTypography="Subtitle"
                                   Margin="0 0 0 32">
-                        Вход Навигатор проектов
+                        Регистрация аккаунтав
                     </ui:TextBlock>
 
                     <ui:TextBox PlaceholderText="Имя пользователя"
@@ -41,14 +44,9 @@
                                     Margin="0 0 0 24" />
                     <ui:Button Appearance="Primary"
                                HorizontalAlignment="Stretch"
-                               Margin="0 0 0 12"
-                               Command="{Binding ViewModel.AuthorizeCommand}">
+                               Command="{Binding ViewModel.RegisterCommand}">
                         Войти
                     </ui:Button>
-                    <ui:HyperlinkButton Command="{Binding ViewModel.NavigateToRegistrationCommand}"
-                                        HorizontalAlignment="Right">
-                        Зарегистрировать тестовый аккаунт
-                    </ui:HyperlinkButton>
                 </StackPanel>
                 <ProgressBar IsIndeterminate="True"
                              Visibility="{Binding ViewModel.ProgressBarVisibility}" />

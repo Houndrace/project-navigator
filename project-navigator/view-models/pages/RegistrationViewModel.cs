@@ -3,6 +3,7 @@ using System.Windows;
 using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
 using project_navigator.helpers;
+using project_navigator.models;
 using project_navigator.services;
 using project_navigator.views.pages;
 using Wpf.Ui;
@@ -10,7 +11,7 @@ using Wpf.Ui.Controls;
 
 namespace project_navigator.view_models.pages;
 
-public partial class AuthorizationViewModel : ObservableValidator
+public partial class RegistrationViewModel : ObservableValidator
 {
     private readonly INavService _navService;
     private readonly ISnackbarService _snackbarService;
@@ -30,7 +31,7 @@ public partial class AuthorizationViewModel : ObservableValidator
 
     [ObservableProperty] private Visibility _progressBarVisibility = Visibility.Hidden;
 
-    public AuthorizationViewModel(IUserService userService, INavService navService, ISnackbarService snackbarService)
+    public RegistrationViewModel(IUserService userService, INavService navService, ISnackbarService snackbarService)
     {
         _userService = userService;
         _navService = navService;
@@ -38,7 +39,7 @@ public partial class AuthorizationViewModel : ObservableValidator
     }
 
     [RelayCommand]
-    private async Task<bool> Authorize()
+    private async Task<bool> Register()
     {
         ValidateAllProperties();
         if (HasErrors)
@@ -49,15 +50,14 @@ public partial class AuthorizationViewModel : ObservableValidator
 
         ShowProgressBar();
         await Task.Delay(TimeSpan.FromSeconds(5));
+        var regData = new RegistrationDto()
+        {
+            UserName = Username,
+            Password = Password
+        };
         try
         {
-            if (!await _userService.Authorize(Username, Password))
-            {
-                DisplayError("Ошибка авторизации", "Неверное имя пользователя или пароль");
-                return false;
-            }
-
-            _navService.Navigate<HomePage>();
+            await _userService.Register(regData);
         }
         catch (Exception e)
         {
@@ -69,13 +69,15 @@ public partial class AuthorizationViewModel : ObservableValidator
             HideProgressBar();
         }
 
+        DisplaySuccess("Успех", "Пользователь успешно зарегистрирован");
+        _navService.Navigate<AuthorizationPage>();
         return true;
     }
 
     [RelayCommand]
-    private void NavigateToRegistration()
+    private void NavigateToAuthorization()
     {
-        _navService.Navigate<RegistrationPage>();
+        _navService.Navigate<AuthorizationPage>();
     }
 
     private void ShowProgressBar()
@@ -86,6 +88,12 @@ public partial class AuthorizationViewModel : ObservableValidator
     private void HideProgressBar()
     {
         ProgressBarVisibility = Visibility.Hidden;
+    }
+
+    private void DisplaySuccess(string title, string message)
+    {
+        _snackbarService.Show(title, message, ControlAppearance.Success,
+            new SymbolIcon(SymbolRegular.CheckmarkCircle24), TimeSpan.FromSeconds(5));
     }
 
     private void DisplayError(string title, string message)

@@ -32,6 +32,8 @@ public partial class App : Application
 
         serviceCollection.AddTransient<AuthorizationPage>();
         serviceCollection.AddTransient<AuthorizationViewModel>();
+        serviceCollection.AddTransient<RegistrationPage>();
+        serviceCollection.AddTransient<RegistrationViewModel>();
         serviceCollection.AddTransient<HomePage>();
         serviceCollection.AddTransient<HomeViewModel>();
 
