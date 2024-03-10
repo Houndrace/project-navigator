@@ -6,8 +6,8 @@ namespace project_navigator.services;
 
 public interface IUserService
 {
-    public Task<bool> Authorize(string userName, string password);
-    public Task<bool> Register(RegistrationDto regDto);
+    public Task<bool> Authorize(string userName, string password, CancellationToken ct = default);
+    public Task<bool> Register(RegistrationDto regDto, CancellationToken ct = default);
 }
 
 public class UserService : IUserService
@@ -21,7 +21,7 @@ public class UserService : IUserService
         _dbContext = dbContext;
     }
 
-    public async Task<bool> Authorize(string userName, string password)
+    public async Task<bool> Authorize(string userName, string password, CancellationToken ct = default)
     {
         if (string.IsNullOrEmpty(userName) || string.IsNullOrEmpty(password))
             return false;
@@ -47,7 +47,7 @@ public class UserService : IUserService
         return suggestedUser?.HashedPassword == _hashService.HashString(password);
     }
 
-    public async Task<bool> Register(RegistrationDto regDto)
+    public async Task<bool> Register(RegistrationDto regDto, CancellationToken ct = default)
     {
         var hashedPassword = _hashService.HashString(regDto.Password);
         var user = new User
@@ -61,7 +61,7 @@ public class UserService : IUserService
 
         try
         {
-            var f = await _dbContext.SaveChangesAsync();
+            await _dbContext.SaveChangesAsync(ct);
         }
         catch (DbUpdateException e)
         {

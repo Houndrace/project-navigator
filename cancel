@@ -1,0 +1,158 @@
+[33mcommit b7467fe21b37738cf4d77bf1a2579eb3549a8e4f[m[33m ([m[1;31morigin/maliy[m[33m, [m[1;32mmaliy[m[33m)[m
+Author: houndrace <hound322@gmail.com>
+Date:   Sun Mar 10 12:01:23 2024 +0300
+
+    Added support for cancellation tokens in UserService.cs, minor refactoring
+
+[33mcommit 72e3c0993410ac279772c82a3ae54b16026cb951[m
+Author: houndrace <hound322@gmail.com>
+Date:   Sun Mar 10 10:25:45 2024 +0300
+
+    for maloy
+
+[33mcommit 23b7e428eff34da6e9d0ea76e6d3350eff2e99aa[m
+Merge: babcaf1 03634f5
+Author: houndrace <hound322@gmail.com>
+Date:   Sun Mar 10 09:21:02 2024 +0300
+
+    Merge branch 'development' into maliy
+
+[33mcommit babcaf131921b0e3039cd15cdb24a43524f5d975[m
+Author: houndrace <hound322@gmail.com>
+Date:   Sun Mar 10 09:19:00 2024 +0300
+
+    авыф
+
+[33mcommit 03634f58ed616fcefe2ecb6c34743d125016b5e6[m
+Author: houndrace <hound322@gmail.com>
+Date:   Sun Mar 10 09:12:26 2024 +0300
+
+    Refactoring
+    UserService.cs, AuthorizationPage.xaml, AuthorizationViewModel.cs, HomePage.xaml, HomeViewModel.cs
+
+[33mcommit 2ad4938eeffc1ddd978290e48b79c2965bea0653[m
+Author: houndrace <hound322@gmail.com>
+Date:   Sat Mar 9 22:33:08 2024 +0300
+
+    Added dto for transferring registration data
+
+[33mcommit 93bcbb8d58f82ff527804c8cb01de9d314c98390[m
+Author: houndrace <hound322@gmail.com>
+Date:   Sat Mar 9 22:32:37 2024 +0300
+
+    Added a progress bar support
+
+[33mcommit 31538bc6305a6e7663363b3b5c8fb4ea7731b49e[m
+Author: houndrace <hound322@gmail.com>
+Date:   Sat Mar 9 22:31:16 2024 +0300
+
+    Added the manifest
+    Added dpi awareness
+
+[33mcommit 02283cc71a774489858c6b33a7c8caf8c38af646[m
+Author: houndrace <hound322@gmail.com>
+Date:   Sat Mar 9 22:29:42 2024 +0300
+
+    Added a section of helper classes
+
+[33mcommit 8b42b3d149683f6e6461383cd452eb4b964b13cf[m
+Author: houndrace <hound322@gmail.com>
+Date:   Sat Mar 9 22:29:06 2024 +0300
+
+    Added a logo
+
+[33mcommit c4f163864d1d0d0337112d42dd74ee931c515ee1[m
+Author: houndrace <hound322@gmail.com>
+Date:   Thu Mar 7 15:35:45 2024 +0300
+
+    Added logic for authorization (logging)
+    Added UserService.cs
+    Added a stopper HomePage.xaml
+
+[33mcommit c2be1b02f0ce74d72098221e1ee3864d9b378bdb[m
+Author: houndrace <hound322@gmail.com>
+Date:   Thu Mar 7 14:23:17 2024 +0300
+
+    Removed an unnecessary constant
+
+[33mcommit 2ef6be169d4d22e524270035edd138a438c21b07[m
+Author: houndrace <hound322@gmail.com>
+Date:   Thu Mar 7 14:06:39 2024 +0300
+
+    Slightly changed the authorization pages, Added a vector logo
+
+[33mcommit 27749ad3626ce77b638e11978d669fb03197c2f2[m
+Author: houndrace <hound322@gmail.com>
+Date:   Thu Mar 7 14:03:59 2024 +0300
+
+    Added support for a snackbar
+
+[33mcommit b802edf45dc0f1db7058f7b9fb460356496361a0[m
+Author: houndrace <hound322@gmail.com>
+Date:   Thu Mar 7 14:00:40 2024 +0300
+
+    Added support for constants
+    Added initial constants
+
+[33mcommit 8b3da7680aae51f61b7a1ebb146bcd6a53de4d72[m
+Author: houndrace <hound322@gmail.com>
+Date:   Thu Mar 7 13:57:33 2024 +0300
+
+    Added support for constants
+    Added initial constants
+
+[33mcommit 3d6768a5e4ddebf76fa8f73293e24a33fed96c86[m
+Author: houndrace <hound322@gmail.com>
+Date:   Thu Mar 7 12:20:56 2024 +0300
+
+    Added a configuration file
+
+[33mcommit 17f5b77918f912474787aae003677087edcb936a[m
+Author: houndrace <hound322@gmail.com>
+Date:   Tue Mar 5 16:06:36 2024 +0300
+
+    Removed non-source files
+
+[33mcommit 71bb1a8e369c7419717ec78fa5ca009e625625f9[m
+Author: houndrace <hound322@gmail.com>
+Date:   Tue Mar 5 15:56:31 2024 +0300
+
+    Added the logic for working with the database and the user model
+
+[33mcommit 8e1c07c8fc9a19ebeb506b384bfcb1735de3d8c8[m
+Author: houndrace <hound322@gmail.com>
+Date:   Tue Mar 5 15:54:47 2024 +0300
+
+    Changed .gitignore and other micro-refactoring
+
+[33mcommit 1494ea7ba3b9718d5a7faed69c803d1f286ae238[m
+Author: houndrace <hound322@gmail.com>
+Date:   Mon Mar 4 21:03:57 2024 +0300
+
+    Created the Authorization UI.
+    Added initial options for navigation and hashing services.
+    Implemented the logic for navigating to the authorization page.
+
+[33mcommit daf7849955b9007dd5c7492857cf61551f72f815[m
+Author: houndrace <hound322@gmail.com>
+Date:   Mon Mar 4 20:58:26 2024 +0300
+
+    Updated .gitignore rules
+
+[33mcommit 33e0b0ef940de04299b332d3775cd0bcc26f8be8[m
+Author: houndrace <hound322@gmail.com>
+Date:   Mon Mar 4 19:00:05 2024 +0300
+
+    Initial MVVM, Dependency Injection setup
+
+[33mcommit 987b174f9c738fef0197968b568c95d4f523f562[m
+Author: houndrace <hound322@gmail.com>
+Date:   Mon Mar 4 18:21:30 2024 +0300
+
+    Added dev branch
+
+[33mcommit d07b3cf7b3869be5f8aa2eb948ac3d255e506125[m
+Author: houndrace <hound322@gmail.com>
+Date:   Mon Mar 4 18:17:23 2024 +0300
+
+    Initial commit
