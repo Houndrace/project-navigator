@@ -18,7 +18,10 @@
         <StackPanel HorizontalAlignment="Center"
                     VerticalAlignment="Center">
             <ui:TextBlock FontTypography="Display">Вы успешно вошли!</ui:TextBlock>
-            <!--<ui:HyperlinkButton Command="{Binding}"></ui:HyperlinkButton>-->
+            <ui:HyperlinkButton HorizontalAlignment="Right"
+                                Command="{Binding}">
+                Вернуться ко входу
+            </ui:HyperlinkButton>
 
         </StackPanel>
 
