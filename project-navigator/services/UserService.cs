@@ -17,8 +17,8 @@ public class UserService : IUserService
 
     public UserService(IHashService hashService, ProjNavContext dbContext)
     {
-        _hashService = hashService;
-        _dbContext = dbContext;
+        _hashService = hashService ?? throw new ArgumentNullException(nameof(hashService));
+        _dbContext = dbContext ?? throw new ArgumentNullException(nameof(dbContext));
     }
 
     public async Task<bool> Authorize(string userName, string password, CancellationToken ct = default)
@@ -26,10 +26,11 @@ public class UserService : IUserService
         if (string.IsNullOrEmpty(userName) || string.IsNullOrEmpty(password))
             return false;
 
-        User? suggestedUser;
+
         try
         {
-            suggestedUser = await _dbContext.Users.FirstOrDefaultAsync(user => user.UserName == userName);
+            var suggestedUser = await _dbContext.Users.FirstOrDefaultAsync(user => user.UserName == userName, ct);
+            return suggestedUser?.HashedPassword == _hashService.HashString(password);
         }
         catch (ArgumentNullException e)
         {
@@ -43,8 +44,6 @@ public class UserService : IUserService
         {
             throw new Exception("Произошла ошибка при попытке получить пользователя.", e);
         }
-
-        return suggestedUser?.HashedPassword == _hashService.HashString(password);
     }
 
     public async Task<bool> Register(RegistrationDto regDto, CancellationToken ct = default)
