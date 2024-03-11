@@ -2,6 +2,7 @@ using System.ComponentModel.DataAnnotations;
 using System.Windows;
 using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
+using Microsoft.EntityFrameworkCore;
 using project_navigator.helpers;
 using project_navigator.services;
 using project_navigator.views.pages;
@@ -51,7 +52,7 @@ public partial class AuthorizationViewModel : ObservableValidator
         await Task.Delay(TimeSpan.FromSeconds(5));
         try
         {
-            if (!await _userService.Authorize(Username, Password))
+            if (!await _userService.AuthorizeAsync(Username, Password))
             {
                 DisplayError("Ошибка авторизации", "Неверное имя пользователя или пароль");
                 return false;
@@ -59,9 +60,9 @@ public partial class AuthorizationViewModel : ObservableValidator
 
             _navService.Navigate<HomePage>();
         }
-        catch (Exception e)
+        catch (OperationCanceledException e)
         {
-            DisplayError("Ошибка", e.Message);
+            DisplayError("Ошибка", "Операция была отменена.");
             return false;
         }
         finally
