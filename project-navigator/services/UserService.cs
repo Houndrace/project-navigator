@@ -37,6 +37,7 @@ public interface IUserService
     /// <param name="ct">A cancellation token that can be used to cancel the asynchronous operation.</param>
     /// <returns>A task representing the asynchronous operation. The task result contains the user if found, otherwise null.</returns>
     /// <exception cref="OperationCanceledException">Thrown when the operation is cancelled through the cancellation token.</exception>
+    /// /// <exception cref="InvalidOperationException">Thrown when a user with the same username already exists.</exception>
     /// <exception cref="ArgumentNullException">Thrown if the provided username is null.</exception>
     public Task<User?> GetUserAsync(string userName, CancellationToken ct = default);
 }
@@ -81,6 +82,11 @@ public class UserService : IUserService
             UserName = regDto.UserName,
             HashedPassword = hashedPassword
         };
+
+        var existentUser = await GetUserAsync(regDto.UserName, ct);
+
+        if (existentUser != null)
+            throw new InvalidOperationException($"A user with the username '{regDto.UserName}' already exists.");
 
         _dbContext.Users.Add(user);
 
