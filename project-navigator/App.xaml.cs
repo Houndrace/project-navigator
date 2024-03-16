@@ -19,6 +19,17 @@ public partial class App : Application
 
     private App()
     {
+        ShowSplashScreen("project-navigator.ico");
+        _serviceProvider = InitializeServiceProvider();
+    }
+    private void ShowSplashScreen(string splashScreenResource)
+    {
+        var splashScreen = new SplashScreen(splashScreenResource);
+        splashScreen.Show(true);
+    }
+
+    private IServiceProvider InitializeServiceProvider()
+    {
         IServiceCollection serviceCollection = new ServiceCollection();
 
         serviceCollection.AddSingleton<MainWindow>();
@@ -35,11 +46,13 @@ public partial class App : Application
         serviceCollection.AddTransient<HomePage>();
         serviceCollection.AddTransient<HomeViewModel>();
 
-        _serviceProvider = serviceCollection.BuildServiceProvider();
+        return serviceCollection.BuildServiceProvider();
     }
+
 
     protected override void OnStartup(StartupEventArgs e)
     {
+
         var dbContext = _serviceProvider.GetService<ProjNavContext>();
         if (!dbContext.Database.CanConnect())
             dbContext.Database.Migrate();

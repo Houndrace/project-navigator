@@ -36,6 +36,7 @@
                     <ui:TextBox PlaceholderText="Имя пользователя"
                                 Text="{Binding ViewModel.Username,  Mode=OneWayToSource, UpdateSourceTrigger=PropertyChanged, ValidatesOnNotifyDataErrors=False}"
                                 Margin="0 0 0 24" />
+
                     <ui:PasswordBox PlaceholderText="Пароль"
                                     Password="{Binding ViewModel.Password, Mode=OneWayToSource, UpdateSourceTrigger=PropertyChanged,ValidatesOnNotifyDataErrors=False}"
                                     Margin="0 0 0 24" />

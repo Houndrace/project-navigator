@@ -55,4 +55,9 @@
         </None>
     </ItemGroup>
 
+    <ItemGroup>
+      <None Remove="project-navigator.ico" />
+      <Resource Include="project-navigator.ico" />
+    </ItemGroup>
+
 </Project>
