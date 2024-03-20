@@ -1,4 +1,4 @@
-<Page x:Class="project_navigator.views.pages.AuthorizationPage"
+<Page x:Class="project_navigator.views.pages.InitialSetupPage"
       xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
       xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
       xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
@@ -7,8 +7,8 @@
       xmlns:ui="http://schemas.lepo.co/wpfui/2022/xaml"
       xmlns:common="clr-namespace:project_navigator.views.common"
       mc:Ignorable="d"
-      Title="AuthorizationPage"
-      d:DataContext="{d:DesignInstance local:AuthorizationPage,
+      Title="ConStringSetupPage"
+      d:DataContext="{d:DesignInstance local:InitialSetupPage,
                                      IsDesignTimeCreatable=False}"
       d:DesignHeight="600"
       d:DesignWidth="1200"
@@ -29,21 +29,28 @@
 
                     <ui:TextBlock HorizontalAlignment="Center"
                                   FontTypography="Subtitle"
-                                  Margin="0 0 0 32">
-                        Вход Навигатор проектов
+                                  Margin="0 0 0 16">
+                        Первичная настройка
                     </ui:TextBlock>
 
-                    <ui:TextBox PlaceholderText="Имя пользователя"
-                                Text="{Binding ViewModel.Username,  Mode=OneWayToSource, UpdateSourceTrigger=PropertyChanged, ValidatesOnNotifyDataErrors=False}"
+                    <ui:TextBlock FontTypography="Body"
+                                  TextWrapping="Wrap"
+                                  Margin="0 0 0 32">
+                        Необходимо ввести данные для подключения к базе данных
+                    </ui:TextBlock>
+
+                    <ui:TextBox PlaceholderText="Сервер"
+                                Text="{Binding ViewModel.Server,  Mode=OneWayToSource, UpdateSourceTrigger=PropertyChanged, ValidatesOnNotifyDataErrors=False}"
                                 Margin="0 0 0 24" />
 
-                    <ui:PasswordBox PlaceholderText="Пароль"
-                                    Password="{Binding ViewModel.Password, Mode=OneWayToSource, UpdateSourceTrigger=PropertyChanged,ValidatesOnNotifyDataErrors=False}"
-                                    Margin="0 0 0 24" />
+                    <ui:TextBox PlaceholderText="Название базы данных"
+                                Text="{Binding ViewModel.Db, Mode=OneWayToSource, UpdateSourceTrigger=PropertyChanged,ValidatesOnNotifyDataErrors=False}"
+                                Margin="0 0 0 24" />
+
                     <ui:Button Appearance="Primary"
                                HorizontalAlignment="Stretch"
-                               Command="{Binding ViewModel.AuthorizeCommand}">
-                        Войти
+                               Command="{Binding ViewModel.ConnectToDbCommand}">
+                        Проверить подключение
                     </ui:Button>
                 </StackPanel>
                 <ProgressBar IsIndeterminate="True"

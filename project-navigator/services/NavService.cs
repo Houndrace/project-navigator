@@ -16,16 +16,19 @@ public class NavService : INavService
 
     public void Navigate<T>() where T : Page
     {
+        ArgumentNullException.ThrowIfNull(_rootFrame);
+        ArgumentNullException.ThrowIfNull(_serviceProvider);
+
         var navPage = _serviceProvider.GetService(typeof(T));
         _rootFrame.Navigate(navPage);
     }
 
-    public void SetServiceProvider(IServiceProvider serviceProvider)
+    public void SetServiceProvider(IServiceProvider? serviceProvider)
     {
         _serviceProvider = serviceProvider;
     }
 
-    public void SetFrame(Frame rootFrame)
+    public void SetFrame(Frame? rootFrame)
     {
         _rootFrame = rootFrame;
     }

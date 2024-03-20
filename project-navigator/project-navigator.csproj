@@ -13,7 +13,6 @@
 
     <ItemGroup>
         <Folder Include="db\migrations\"/>
-        <Folder Include="view-models\windows\"/>
     </ItemGroup>
 
     <ItemGroup>
@@ -28,11 +27,8 @@
             <PrivateAssets>all</PrivateAssets>
             <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
         </PackageReference>
-        <PackageReference Include="Microsoft.Extensions.Configuration" Version="8.0.0"/>
-        <PackageReference Include="Microsoft.Extensions.Configuration.EnvironmentVariables" Version="8.0.0"/>
-        <PackageReference Include="Microsoft.Extensions.Configuration.FileExtensions" Version="8.0.0"/>
-        <PackageReference Include="Microsoft.Extensions.Configuration.Json" Version="8.0.0"/>
         <PackageReference Include="Microsoft.Extensions.DependencyInjection" Version="8.0.0"/>
+        <PackageReference Include="Newtonsoft.Json" Version="13.0.3"/>
         <PackageReference Include="WPF-UI" Version="3.0.0"/>
     </ItemGroup>
 
@@ -50,14 +46,11 @@
     </ItemGroup>
 
     <ItemGroup>
-        <None Update="env.json">
-            <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+        <None Remove="project-navigator.ico"/>
+        <Resource Include="project-navigator.ico"/>
+        <None Update="config.json">
+            <CopyToOutputDirectory>Never</CopyToOutputDirectory>
         </None>
-    </ItemGroup>
-
-    <ItemGroup>
-      <None Remove="project-navigator.ico" />
-      <Resource Include="project-navigator.ico" />
     </ItemGroup>
 
 </Project>

@@ -14,7 +14,7 @@ namespace project_navigator.view_models.pages;
 public partial class AuthorizationViewModel : ObservableValidator
 {
     private readonly INavService _navService;
-    private readonly ISnackbarService _snackbarService;
+    private readonly ValidatorHelper _validatorHelper;
     private readonly IUserService _userService;
 
     [ObservableProperty]
@@ -31,11 +31,11 @@ public partial class AuthorizationViewModel : ObservableValidator
 
     [ObservableProperty] private Visibility _progressBarVisibility = Visibility.Hidden;
 
-    public AuthorizationViewModel(IUserService userService, INavService navService, ISnackbarService snackbarService)
+    public AuthorizationViewModel(IUserService userService, INavService navService, ValidatorHelper validatorHelper)
     {
         _userService = userService;
         _navService = navService;
-        _snackbarService = snackbarService;
+        _validatorHelper = validatorHelper;
     }
 
     [RelayCommand]
@@ -44,17 +44,17 @@ public partial class AuthorizationViewModel : ObservableValidator
         ValidateAllProperties();
         if (HasErrors)
         {
-            DisplayError("Неверные данные", ConcatenatePropertyErrors());
+            _validatorHelper.DisplayError("Неверные данные", ConcatenatePropertyErrors());
             return false;
         }
 
-        ShowProgressBar();
+        ProgressBarVisibility = Visibility.Visible;
         await Task.Delay(TimeSpan.FromSeconds(5));
         try
         {
             if (!await _userService.AuthorizeAsync(Username, Password))
             {
-                DisplayError("Ошибка авторизации", "Неверное имя пользователя или пароль");
+                _validatorHelper.DisplayError("Ошибка авторизации", "Неверное имя пользователя или пароль");
                 return false;
             }
 
@@ -62,35 +62,19 @@ public partial class AuthorizationViewModel : ObservableValidator
         }
         catch (OperationCanceledException e)
         {
-            DisplayError("Ошибка", "Операция была отменена.");
+            _validatorHelper.DisplayCanceledError();
             return false;
         }
         finally
         {
-            HideProgressBar();
+            ProgressBarVisibility = Visibility.Hidden;
         }
 
         return true;
     }
 
-    private void ShowProgressBar()
-    {
-        ProgressBarVisibility = Visibility.Visible;
-    }
-
-    private void HideProgressBar()
-    {
-        ProgressBarVisibility = Visibility.Hidden;
-    }
-
-    private void DisplayError(string title, string message)
-    {
-        _snackbarService.Show(title, message, ControlAppearance.Secondary,
-            new SymbolIcon(SymbolRegular.ErrorCircle24), TimeSpan.FromSeconds(5));
-    }
-
     private string ConcatenatePropertyErrors()
     {
-        return new ValidatorHelper().ConcatenateErrors(GetErrors());
+        return _validatorHelper.ConcatenateErrors(GetErrors());
     }
 }

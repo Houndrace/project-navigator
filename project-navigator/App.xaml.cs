@@ -2,63 +2,65 @@
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.DependencyInjection;
 using project_navigator.db;
+using project_navigator.helpers;
 using project_navigator.services;
 using project_navigator.view_models.pages;
+using project_navigator.view_models.windows;
 using project_navigator.views.pages;
 using project_navigator.views.windows;
 using Wpf.Ui;
 
 namespace project_navigator;
 
+//TODO: сделать документацию ко всему в прложении, обработать исключения конфига, сделать страницу настройки строки подключения
 /// <summary>
 ///     Interaction logic for App.xaml
 /// </summary>
 public partial class App : Application
 {
+    private const string SplashScreenResource = "project-navigator.ico";
     private readonly IServiceProvider _serviceProvider;
+    private readonly SplashScreen _splashScreen;
 
     private App()
     {
-        ShowSplashScreen("project-navigator.ico");
+        _splashScreen = new SplashScreen(SplashScreenResource);
+        _splashScreen.Show(autoClose: false);
+
         _serviceProvider = InitializeServiceProvider();
     }
-    private void ShowSplashScreen(string splashScreenResource)
-    {
-        var splashScreen = new SplashScreen(splashScreenResource);
-        splashScreen.Show(true);
-    }
 
-    private IServiceProvider InitializeServiceProvider()
+    private static IServiceProvider InitializeServiceProvider()
     {
         IServiceCollection serviceCollection = new ServiceCollection();
-
-        serviceCollection.AddSingleton<MainWindow>();
-
-        serviceCollection.AddDbContext<ProjNavContext>();
-
+        //TODO: подумать насчет интерфейсов(исключения можно посмотреть в реализации, не описывать их в интерфейсе, НО описывать в реализации)
+        serviceCollection.AddSingleton<ValidatorHelper>();
         serviceCollection.AddSingleton<INavService, NavService>();
         serviceCollection.AddSingleton<IHashService, HashService>();
         serviceCollection.AddSingleton<IUserService, UserService>();
         serviceCollection.AddSingleton<ISnackbarService, SnackbarService>();
+        serviceCollection.AddSingleton<IConfigurationService, ConfigurationService>();
+
+        serviceCollection.AddDbContext<ProjNavContext>();
+
+        serviceCollection.AddSingleton<MainWindow>();
+        serviceCollection.AddSingleton<MainViewModel>();
 
         serviceCollection.AddTransient<AuthorizationPage>();
         serviceCollection.AddTransient<AuthorizationViewModel>();
         serviceCollection.AddTransient<HomePage>();
         serviceCollection.AddTransient<HomeViewModel>();
+        serviceCollection.AddTransient<InitialSetupPage>();
+        serviceCollection.AddTransient<InitialSetupViewModel>();
 
         return serviceCollection.BuildServiceProvider();
     }
 
-
     protected override void OnStartup(StartupEventArgs e)
     {
-
-        var dbContext = _serviceProvider.GetService<ProjNavContext>();
-        if (!dbContext.Database.CanConnect())
-            dbContext.Database.Migrate();
-
-        var mainWindow = _serviceProvider.GetService<MainWindow>();
-        mainWindow.Show();
         base.OnStartup(e);
+        var mainWindow = _serviceProvider.GetService<MainWindow>();
+        _splashScreen.Close(TimeSpan.FromMilliseconds(400));
+        mainWindow.Show();
     }
 }
