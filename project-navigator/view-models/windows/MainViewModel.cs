@@ -47,20 +47,6 @@ public class MainViewModel
         {
             _navService.Navigate<InitialSetupPage>();
         }
-        /*try
-        {
-            // TODO:перенести логику на initialSetupPage и AuthorizationPage
-            // TODO:подумать можно ли запрятать эту логику куда нибудь(она здесь не очень выглядит)
-            if (!await _dbContext.Database.CanConnectAsync())
-                await _dbContext.Database.MigrateAsync();
-            ////////////////////////////////////////////////////////////////////////////////////////
-            _navService.Navigate<AuthorizationPage>();
-        }
-        catch (Exception e) when (e is ArgumentException or InvalidOperationException or SqlException)
-        {
-            Console.WriteLine($"{e.Source}: {e.Message}");
-            _navService.Navigate<InitialSetupPage>();
-        }*/
     }
 
     public void ConfigureServices()
@@ -86,8 +72,8 @@ public class MainViewModel
 
     private void ConfigureTheme()
     {
-        var logoColor = (SolidColorBrush?)Application.Current.Resources["LogoColor"];
-        if (logoColor != null)
-            ApplicationAccentColorManager.Apply(logoColor.Color);
+        var primaryBrush = (SolidColorBrush?)Application.Current.Resources["PrimaryBrush"];
+        if (primaryBrush != null)
+            ApplicationAccentColorManager.Apply(primaryBrush.Color);
     }
 }

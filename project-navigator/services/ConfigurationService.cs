@@ -9,9 +9,9 @@ public interface IConfigurationService
     void CreateConfig(string connectionString = "YourConnectionStringHere");
     string? GetConnectionString();
     void SetConnectionString(string connection);
+    void SaveConfig();
 }
 
-//TODO:придумать логирование
 public class ConfigurationService : IConfigurationService
 {
     private const string ConfigFilePath = "config.json";
@@ -31,10 +31,7 @@ public class ConfigurationService : IConfigurationService
 
     public string? GetConnectionString()
     {
-        if (!IsConfigExists())
-        {
-            throw new InvalidOperationException("Configuration not found.");
-        }
+        if (!IsConfigExists()) throw new InvalidOperationException("Configuration not found.");
 
         return _configuration![ConnectionStringsSection]?[MainConnectionSection]?.Value<string>();
     }
@@ -43,14 +40,11 @@ public class ConfigurationService : IConfigurationService
     {
         ArgumentException.ThrowIfNullOrEmpty(connection);
 
-        if (!IsConfigExists())
-        {
-            throw new InvalidOperationException("Configuration not found.");
-        }
+        if (!IsConfigExists()) throw new InvalidOperationException("Configuration not found.");
 
         _configuration![ConnectionStringsSection] ??= new JObject();
         _configuration[ConnectionStringsSection]![MainConnectionSection] = connection;
-        SaveConfig(_configuration);
+        SaveConfig();
     }
 
     private JObject? LoadConfig()
@@ -69,20 +63,19 @@ public class ConfigurationService : IConfigurationService
 
     public void CreateConfig(string connectionString = "YourConnectionStringHere")
     {
-        var config = new JObject
+        _configuration = new JObject
         {
             [ConnectionStringsSection] = new JObject
             {
                 [MainConnectionSection] = connectionString
             }
         };
-
-        SaveConfig(config);
-        _configuration = LoadConfig();
     }
 
-    private void SaveConfig(JObject configFile)
+    public void SaveConfig()
     {
-        File.WriteAllText(ConfigFilePath, configFile.ToString());
+        ArgumentNullException.ThrowIfNull(_configuration);
+
+        File.WriteAllText(ConfigFilePath, _configuration.ToString());
     }
 }

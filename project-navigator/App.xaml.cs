@@ -12,21 +12,17 @@ using Wpf.Ui;
 
 namespace project_navigator;
 
-//TODO: сделать документацию ко всему в прложении, обработать исключения конфига, сделать страницу настройки строки подключения
+//TODO: сделать отдельным окном сплеш скрин
 /// <summary>
 ///     Interaction logic for App.xaml
 /// </summary>
 public partial class App : Application
 {
-    private const string SplashScreenResource = "project-navigator.ico";
+    private const string SplashScreenResource = "project_navigator.ico";
     private readonly IServiceProvider _serviceProvider;
-    private readonly SplashScreen _splashScreen;
 
     private App()
     {
-        _splashScreen = new SplashScreen(SplashScreenResource);
-        _splashScreen.Show(autoClose: false);
-
         _serviceProvider = InitializeServiceProvider();
     }
 
@@ -60,7 +56,6 @@ public partial class App : Application
     {
         base.OnStartup(e);
         var mainWindow = _serviceProvider.GetService<MainWindow>();
-        _splashScreen.Close(TimeSpan.FromMilliseconds(400));
         mainWindow.Show();
     }
 }

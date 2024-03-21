@@ -1,3 +1,4 @@
+using System.Data;
 using System.Windows;
 using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
@@ -9,6 +10,7 @@ using project_navigator.views.pages;
 
 namespace project_navigator.view_models.pages;
 
+//TODO:Сделать отдельную привественную страницу, а сюда редиректить из изменить подключение
 public partial class InitialSetupViewModel : ObservableObject
 {
     private readonly ValidatorHelper _validatorHelper;
@@ -37,20 +39,22 @@ public partial class InitialSetupViewModel : ObservableObject
         {
             var connectionString =
                 $"Server={Server};Database={Db};Trusted_Connection=True;TrustServerCertificate=True;";
-            _configurationService.CreateConfig(connectionString);
+            if (!_configurationService.IsConfigExists())
+            {
+                _configurationService.CreateConfig(connectionString);
+            }
 
             _dbContext.Database.SetConnectionString(_configurationService.GetConnectionString());
 
-            if (!await _dbContext.Database.CanConnectAsync())
-            {
-                _validatorHelper.DisplayError("Ошибка подключения", "Проверьте название сервера и базы данных");
-                return false;
-            }
-
             await _dbContext.Database.MigrateAsync();
+            _configurationService.SaveConfig();
+
+            _navService.Navigate<AuthorizationPage>();
+            return true;
         }
         catch (OperationCanceledException e)
         {
+            Console.WriteLine(e);
             _validatorHelper.DisplayCanceledError();
             return false;
         }
@@ -58,8 +62,5 @@ public partial class InitialSetupViewModel : ObservableObject
         {
             ProgressBarVisibility = Visibility.Hidden;
         }
-
-        _navService.Navigate<AuthorizationPage>();
-        return true;
     }
 }

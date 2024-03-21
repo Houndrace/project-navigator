@@ -5,7 +5,6 @@
       xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
       xmlns:local="clr-namespace:project_navigator.views.pages"
       xmlns:ui="http://schemas.lepo.co/wpfui/2022/xaml"
-      xmlns:common="clr-namespace:project_navigator.views.common"
       mc:Ignorable="d"
       Title="AuthorizationPage"
       d:DataContext="{d:DesignInstance local:AuthorizationPage,
@@ -15,7 +14,29 @@
       ui:Design.Background="{DynamicResource ApplicationBackgroundBrush}"
       ui:Design.Foreground="{DynamicResource TextFillColorPrimaryBrush}"
       Foreground="{DynamicResource TextFillColorPrimaryBrush}">
-    <Grid>
+    <!-- TODO: довести до ума снизу -->
+    <Grid Margin="16">
+        <ui:DropDownButton Content="Подключено/ошибка"
+                           HorizontalAlignment="Right"
+                           VerticalAlignment="Top"
+                           Icon="{ui:SymbolIcon DatabaseWarning20}">
+
+            <ui:DropDownButton.Flyout>
+                <ContextMenu>
+                    <ui:MenuItem Header="Подключиться(видно если ошибка)">
+                        <ui:MenuItem.Icon>
+                            <ui:SymbolIcon Symbol="PlugConnected20"></ui:SymbolIcon>
+                        </ui:MenuItem.Icon>
+                    </ui:MenuItem>
+                    <ui:MenuItem Header="Изменить подключение">
+                        <ui:MenuItem.Icon>
+                            <ui:SymbolIcon Symbol="EditSettings20"></ui:SymbolIcon>
+                        </ui:MenuItem.Icon>
+                    </ui:MenuItem>
+                </ContextMenu>
+            </ui:DropDownButton.Flyout>
+        </ui:DropDownButton>
+
         <ui:Card VerticalAlignment="Center"
                  HorizontalAlignment="Center"
                  Margin="0"
@@ -23,9 +44,10 @@
             <StackPanel>
                 <StackPanel Margin="32"
                             Width="340">
-                    <common:Logo Width="60"
-                                 Height="60"
-                                 Margin="0 0 0 16" />
+                    <Image Width="60"
+                           Height="60"
+                           Source="{StaticResource LogoDrawingImage}"
+                           Margin="0 0 0 16" />
 
                     <ui:TextBlock HorizontalAlignment="Center"
                                   FontTypography="Subtitle"

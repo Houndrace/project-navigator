@@ -1,58 +1,66 @@
-<Page x:Class="project_navigator.views.pages.InitialSetupPage"
-      xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
-      xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-      xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-      xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
-      xmlns:local="clr-namespace:project_navigator.views.pages"
-      xmlns:ui="http://schemas.lepo.co/wpfui/2022/xaml"
-      xmlns:common="clr-namespace:project_navigator.views.common"
-      mc:Ignorable="d"
+<Page Foreground="{DynamicResource TextFillColorPrimaryBrush}"
       Title="ConStringSetupPage"
       d:DataContext="{d:DesignInstance local:InitialSetupPage,
                                      IsDesignTimeCreatable=False}"
       d:DesignHeight="600"
       d:DesignWidth="1200"
+      mc:Ignorable="d"
       ui:Design.Background="{DynamicResource ApplicationBackgroundBrush}"
       ui:Design.Foreground="{DynamicResource TextFillColorPrimaryBrush}"
-      Foreground="{DynamicResource TextFillColorPrimaryBrush}">
+      x:Class="project_navigator.views.pages.InitialSetupPage"
+      xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+      xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+      xmlns:local="clr-namespace:project_navigator.views.pages"
+      xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+      xmlns:ui="http://schemas.lepo.co/wpfui/2022/xaml"
+      xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
     <Grid>
-        <ui:Card VerticalAlignment="Center"
-                 HorizontalAlignment="Center"
+        <ui:Card HorizontalAlignment="Center"
                  Margin="0"
-                 Padding="0">
+                 Padding="0"
+                 VerticalAlignment="Center">
             <StackPanel>
                 <StackPanel Margin="32"
                             Width="340">
-                    <common:Logo Width="60"
-                                 Height="60"
-                                 Margin="0 0 0 16" />
 
-                    <ui:TextBlock HorizontalAlignment="Center"
-                                  FontTypography="Subtitle"
-                                  Margin="0 0 0 16">
-                        Первичная настройка
+                    <Image Height="60"
+                           Margin="0,0,0,16"
+                           Source="{StaticResource LogoDrawingImage}"
+                           Width="60" />
+
+                    <ui:TextBlock FontTypography="Subtitle"
+                                  HorizontalAlignment="Center"
+                                  Margin="0,0,0,16">
+                        Настройка базы данных
                     </ui:TextBlock>
 
                     <ui:TextBlock FontTypography="Body"
                                   TextWrapping="Wrap"
                                   Margin="0 0 0 32">
-                        Необходимо ввести данные для подключения к базе данных
+                        Для дальнейшей работы необходимо подключиться к серверу.
                     </ui:TextBlock>
 
-                    <ui:TextBox PlaceholderText="Сервер"
-                                Text="{Binding ViewModel.Server,  Mode=OneWayToSource, UpdateSourceTrigger=PropertyChanged, ValidatesOnNotifyDataErrors=False}"
-                                Margin="0 0 0 24" />
+                    <ui:TextBox Margin="0,0,0,24"
+                                PlaceholderText="Сервер"
+                                Text="{Binding ViewModel.Server, Mode=OneWayToSource, UpdateSourceTrigger=PropertyChanged, ValidatesOnNotifyDataErrors=False}" />
 
-                    <ui:TextBox PlaceholderText="Название базы данных"
-                                Text="{Binding ViewModel.Db, Mode=OneWayToSource, UpdateSourceTrigger=PropertyChanged,ValidatesOnNotifyDataErrors=False}"
-                                Margin="0 0 0 24" />
+                    <ui:TextBox Margin="0,0,0,24"
+                                PlaceholderText="Название базы данных"
+                                Text="{Binding ViewModel.Db, Mode=OneWayToSource, UpdateSourceTrigger=PropertyChanged, ValidatesOnNotifyDataErrors=False}" />
 
                     <ui:Button Appearance="Primary"
+                               Command="{Binding ViewModel.ConnectToDbCommand}"
+                               Content="Подключиться"
                                HorizontalAlignment="Stretch"
-                               Command="{Binding ViewModel.ConnectToDbCommand}">
-                        Проверить подключение
+                               Margin="0,0,0,8">
                     </ui:Button>
+
+                    <ui:TextBlock FontTypography="Caption"
+                                  TextWrapping="Wrap">
+                        *если базы данных с предоставленным названием не существует, она будет создана.
+                    </ui:TextBlock>
                 </StackPanel>
+
                 <ProgressBar IsIndeterminate="True"
                              Visibility="{Binding ViewModel.ProgressBarVisibility}" />
             </StackPanel>

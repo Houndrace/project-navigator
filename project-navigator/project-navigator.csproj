@@ -8,7 +8,7 @@
         <ImplicitUsings>enable</ImplicitUsings>
         <ApplicationManifest>app.manifest</ApplicationManifest>
         <UseWPF>true</UseWPF>
-        <ApplicationIcon>project-navigator.ico</ApplicationIcon>
+        <ApplicationIcon>branding\project_navigator.ico</ApplicationIcon>
     </PropertyGroup>
 
     <ItemGroup>
@@ -29,7 +29,7 @@
         </PackageReference>
         <PackageReference Include="Microsoft.Extensions.DependencyInjection" Version="8.0.0"/>
         <PackageReference Include="Newtonsoft.Json" Version="13.0.3"/>
-        <PackageReference Include="WPF-UI" Version="3.0.0"/>
+        <PackageReference Include="WPF-UI" Version="3.0.2"/>
     </ItemGroup>
 
     <ItemGroup>
@@ -47,10 +47,13 @@
 
     <ItemGroup>
         <None Remove="project-navigator.ico"/>
-        <Resource Include="project-navigator.ico"/>
         <None Update="config.json">
             <CopyToOutputDirectory>Never</CopyToOutputDirectory>
         </None>
+    </ItemGroup>
+
+    <ItemGroup>
+        <None Remove="project_navigator.ico"/>
     </ItemGroup>
 
 </Project>
