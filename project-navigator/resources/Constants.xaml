@@ -1,7 +1,7 @@
 <ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
                     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
                     xmlns:system="clr-namespace:System;assembly=System.Runtime">
-    <system:String x:Key="ProjectName">Навигатор Проектов</system:String>
+    <system:String x:Key="ProjectTitle">Навигатор Проектов</system:String>
 
     <system:Double x:Key="DefaultScreenWidth">1440</system:Double>
     <system:Double x:Key="DefaultScreenHeight">900</system:Double>
@@ -13,26 +13,4 @@
     <SolidColorBrush x:Key="OnPrimaryLogoBrush">#FFFAF9F8</SolidColorBrush>
 
 
-    <DrawingImage x:Key="LogoDrawingImage">
-        <DrawingImage.Drawing>
-            <DrawingGroup ClipGeometry="M0,0 V60 H60 V0 H0 Z">
-                <DrawingGroup Opacity="1">
-                    <DrawingGroup.ClipGeometry>
-                        <RectangleGeometry RadiusX="8"
-                                           RadiusY="8"
-                                           Rect="0,0,60,60" />
-                    </DrawingGroup.ClipGeometry>
-                    <GeometryDrawing Brush="{StaticResource PrimaryBrush}">
-                        <GeometryDrawing.Geometry>
-                            <RectangleGeometry RadiusX="8"
-                                               RadiusY="8"
-                                               Rect="0,0,60,60" />
-                        </GeometryDrawing.Geometry>
-                    </GeometryDrawing>
-                    <GeometryDrawing Brush="{StaticResource OnPrimaryLogoBrush}"
-                                     Geometry="F1 M60,60z M0,0z M28.0625,40.2812L28.0625,44.5 16.3906,44.5 16.3906,40.2812 28.0625,40.2812z M18.2188,31.25L18.2188,54 12.7344,54 12.7344,31.25 18.2188,31.25z M31.75,31.25L31.75,54 26.2812,54 26.2812,31.25 31.75,31.25z M54.3281,31.25L54.3281,54 48.8438,54 48.8438,35.4844 40.6719,35.4844 40.6719,54 35.2031,54 35.2031,31.25 54.3281,31.25z" />
-                </DrawingGroup>
-            </DrawingGroup>
-        </DrawingImage.Drawing>
-    </DrawingImage>
 </ResourceDictionary>

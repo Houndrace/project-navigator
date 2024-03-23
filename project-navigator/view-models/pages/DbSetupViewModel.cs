@@ -11,7 +11,7 @@ using project_navigator.views.pages;
 namespace project_navigator.view_models.pages;
 
 //TODO:Сделать отдельную привественную страницу, а сюда редиректить из изменить подключение
-public partial class InitialSetupViewModel : ObservableObject
+public partial class DbSetupViewModel : ObservableObject
 {
     private readonly ValidatorHelper _validatorHelper;
     private readonly INavService _navService;
@@ -21,7 +21,7 @@ public partial class InitialSetupViewModel : ObservableObject
     [ObservableProperty] private string _db = "";
     [ObservableProperty] private Visibility _progressBarVisibility = Visibility.Hidden;
 
-    public InitialSetupViewModel(ValidatorHelper validatorHelper, INavService navService,
+    public DbSetupViewModel(ValidatorHelper validatorHelper, INavService navService,
         IConfigurationService configurationService, ProjNavContext dbContext)
     {
         _validatorHelper = validatorHelper;

@@ -7,6 +7,7 @@ using project_navigator.services;
 using project_navigator.view_models.pages;
 using project_navigator.view_models.windows;
 using project_navigator.views.pages;
+using project_navigator.views.pages.MainContent;
 using project_navigator.views.windows;
 using Wpf.Ui;
 
@@ -31,7 +32,8 @@ public partial class App : Application
         IServiceCollection serviceCollection = new ServiceCollection();
         //TODO: подумать насчет интерфейсов(исключения можно посмотреть в реализации, не описывать их в интерфейсе, НО описывать в реализации)
         serviceCollection.AddSingleton<ValidatorHelper>();
-        serviceCollection.AddSingleton<INavService, NavService>();
+        serviceCollection.AddSingleton<INavService, NavService>(); // Global navigation
+        serviceCollection.AddSingleton<INavigationService, NavigationService>(); // Main content navigation
         serviceCollection.AddSingleton<IHashService, HashService>();
         serviceCollection.AddSingleton<IUserService, UserService>();
         serviceCollection.AddSingleton<ISnackbarService, SnackbarService>();
@@ -42,12 +44,14 @@ public partial class App : Application
         serviceCollection.AddSingleton<MainWindow>();
         serviceCollection.AddSingleton<MainViewModel>();
 
+        serviceCollection.AddTransient<DbSetupPage>();
+        serviceCollection.AddTransient<DbSetupViewModel>();
         serviceCollection.AddTransient<AuthorizationPage>();
         serviceCollection.AddTransient<AuthorizationViewModel>();
+        serviceCollection.AddTransient<MainContentPage>();
+        serviceCollection.AddTransient<MainContentViewModel>();
         serviceCollection.AddTransient<HomePage>();
         serviceCollection.AddTransient<HomeViewModel>();
-        serviceCollection.AddTransient<InitialSetupPage>();
-        serviceCollection.AddTransient<InitialSetupViewModel>();
 
         return serviceCollection.BuildServiceProvider();
     }

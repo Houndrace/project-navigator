@@ -7,7 +7,7 @@
                  mc:Ignorable="d"
                  ui:Design.Background="{DynamicResource ApplicationBackgroundBrush}"
                  ui:Design.Foreground="{DynamicResource TextFillColorPrimaryBrush}"
-                 Title="{StaticResource ProjectName}"
+                 Title="{StaticResource ProjectTitle}"
                  Width="{StaticResource DefaultScreenWidth}"
                  Height="{StaticResource DefaultScreenHeight}"
                  MinHeight="{StaticResource MinScreenHeight}"

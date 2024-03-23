@@ -1,13 +1,13 @@
-<Page x:Class="project_navigator.views.pages.HomePage"
+<Page x:Class="project_navigator.views.pages.MainContent.MainContentPage"
       xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
       xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
       xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
       xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
-      xmlns:local="clr-namespace:project_navigator.views.pages"
       xmlns:ui="http://schemas.lepo.co/wpfui/2022/xaml"
+      xmlns:mainContent="clr-namespace:project_navigator.views.pages.MainContent"
       mc:Ignorable="d"
-      Title="HomePage"
-      d:DataContext="{d:DesignInstance local:HomePage,
+      Title="MainContentPage"
+      d:DataContext="{d:DesignInstance mainContent:MainContentPage,
                                      IsDesignTimeCreatable=False}"
       d:DesignHeight="600"
       d:DesignWidth="1200"
@@ -15,12 +15,9 @@
       ui:Design.Foreground="{DynamicResource TextFillColorPrimaryBrush}"
       Foreground="{DynamicResource TextFillColorPrimaryBrush}">
     <Grid>
-        <StackPanel HorizontalAlignment="Center"
-                    VerticalAlignment="Center">
-            <ui:TextBlock FontTypography="Display">Вы успешно вошли!</ui:TextBlock>
-            <!--<ui:HyperlinkButton Command="{Binding}"></ui:HyperlinkButton>-->
-
-        </StackPanel>
+        <ui:NavigationView FooterMenuItemsSource="{Binding ViewModel.FooterMenuItems, Mode=OneWay}"
+                           MenuItemsSource="{Binding ViewModel.MenuItems, Mode=OneWay}"
+                           Name="NavigationView" />
 
     </Grid>
 </Page>

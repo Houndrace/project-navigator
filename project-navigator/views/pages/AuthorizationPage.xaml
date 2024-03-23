@@ -14,13 +14,13 @@
       ui:Design.Background="{DynamicResource ApplicationBackgroundBrush}"
       ui:Design.Foreground="{DynamicResource TextFillColorPrimaryBrush}"
       Foreground="{DynamicResource TextFillColorPrimaryBrush}">
-    <!-- TODO: довести до ума снизу -->
+
     <Grid Margin="16">
-        <ui:DropDownButton Content="Подключено/ошибка"
+        <ui:DropDownButton Content="{Binding ViewModel.ConnectionStatus}"
                            HorizontalAlignment="Right"
                            VerticalAlignment="Top"
-                           Icon="{ui:SymbolIcon DatabaseWarning20}">
-
+                           Icon="{Binding ViewModel.ConnectionIcon}">
+            <!-- TODO: довести до ума снизу -->
             <ui:DropDownButton.Flyout>
                 <ContextMenu>
                     <ui:MenuItem Header="Подключиться(видно если ошибка)">

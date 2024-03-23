@@ -3,9 +3,11 @@ using System.Windows;
 using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
 using Microsoft.EntityFrameworkCore;
+using project_navigator.db;
 using project_navigator.helpers;
 using project_navigator.services;
 using project_navigator.views.pages;
+using project_navigator.views.pages.MainContent;
 using Wpf.Ui;
 using Wpf.Ui.Controls;
 
@@ -29,13 +31,25 @@ public partial class AuthorizationViewModel : ObservableValidator
     [MaxLength(50, ErrorMessage = "Максимальная длина пароля 50 знаков")]
     private string _password = "";
 
+    [ObservableProperty] private string _connectionStatus = "Не подключено";
+    [ObservableProperty] private SymbolRegular _connectionIcon = SymbolRegular.DatabaseWarning20;
+
     [ObservableProperty] private Visibility _progressBarVisibility = Visibility.Hidden;
 
-    public AuthorizationViewModel(IUserService userService, INavService navService, ValidatorHelper validatorHelper)
+    public AuthorizationViewModel(IUserService userService, INavService navService, ValidatorHelper validatorHelper,
+        ProjNavContext projNavContext)
     {
         _userService = userService;
         _navService = navService;
         _validatorHelper = validatorHelper;
+
+        var connectionTask = projNavContext.Database.CanConnectAsync();
+
+        if (connectionTask.Result)
+        {
+            ConnectionStatus = "Подключено";
+            ConnectionIcon = SymbolRegular.Database20;
+        }
     }
 
     [RelayCommand]
@@ -44,7 +58,7 @@ public partial class AuthorizationViewModel : ObservableValidator
         ValidateAllProperties();
         if (HasErrors)
         {
-            _validatorHelper.DisplayError("Неверные данные", ConcatenatePropertyErrors());
+            _validatorHelper.DisplayError("Неверные данные", _validatorHelper.ConcatenateErrors(GetErrors()));
             return false;
         }
 
@@ -58,7 +72,7 @@ public partial class AuthorizationViewModel : ObservableValidator
                 return false;
             }
 
-            _navService.Navigate<HomePage>();
+            _navService.Navigate<MainContentPage>();
         }
         catch (OperationCanceledException e)
         {
@@ -71,10 +85,5 @@ public partial class AuthorizationViewModel : ObservableValidator
         }
 
         return true;
-    }
-
-    private string ConcatenatePropertyErrors()
-    {
-        return _validatorHelper.ConcatenateErrors(GetErrors());
     }
 }

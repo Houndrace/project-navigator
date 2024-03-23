@@ -1,11 +1,10 @@
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Media;
-using Microsoft.Data.SqlClient;
-using Microsoft.EntityFrameworkCore;
 using project_navigator.db;
 using project_navigator.services;
 using project_navigator.views.pages;
+using project_navigator.views.pages.MainContent;
 using Wpf.Ui;
 using Wpf.Ui.Appearance;
 using Wpf.Ui.Controls;
@@ -39,13 +38,15 @@ public class MainViewModel
 
     public void NavigateToInitialPage()
     {
+        _navService.Navigate<MainContentPage>();
+        return;
         if (_configurationService.IsConfigExists())
         {
             _navService.Navigate<AuthorizationPage>();
         }
         else
         {
-            _navService.Navigate<InitialSetupPage>();
+            _navService.Navigate<DbSetupPage>();
         }
     }
 
