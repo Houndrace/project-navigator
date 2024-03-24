@@ -1,0 +1,18 @@
+<Page x:Class="project_navigator.Views.Pages.MainContent.DashboardPage"
+      xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+      xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+      xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+      xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+      xmlns:ui="http://schemas.lepo.co/wpfui/2022/xaml"
+      xmlns:mainContent="clr-namespace:project_navigator.Views.Pages.MainContent"
+      mc:Ignorable="d"
+      Title="HomePage"
+      d:DataContext="{d:DesignInstance mainContent:DashboardPage,
+                                     IsDesignTimeCreatable=False}"
+      d:DesignHeight="600"
+      d:DesignWidth="1200"
+      ui:Design.Background="{DynamicResource ApplicationBackgroundBrush}"
+      ui:Design.Foreground="{DynamicResource TextFillColorPrimaryBrush}"
+      Foreground="{DynamicResource TextFillColorPrimaryBrush}">
+    <Grid Background="Aqua" />
+</Page>

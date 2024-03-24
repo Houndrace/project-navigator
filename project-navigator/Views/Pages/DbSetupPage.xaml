@@ -1,0 +1,68 @@
+<Page Foreground="{DynamicResource TextFillColorPrimaryBrush}"
+      Title="ConStringSetupPage"
+      d:DataContext="{d:DesignInstance local:DbSetupPage,
+                                     IsDesignTimeCreatable=False}"
+      d:DesignHeight="600"
+      d:DesignWidth="1200"
+      mc:Ignorable="d"
+      ui:Design.Background="{DynamicResource ApplicationBackgroundBrush}"
+      ui:Design.Foreground="{DynamicResource TextFillColorPrimaryBrush}"
+      x:Class="project_navigator.views.pages.DbSetupPage"
+      xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+      xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+      xmlns:local="clr-namespace:project_navigator.views.pages"
+      xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+      xmlns:ui="http://schemas.lepo.co/wpfui/2022/xaml"
+      xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+    <Grid>
+        <ui:Card HorizontalAlignment="Center"
+                 Margin="0"
+                 Padding="0"
+                 VerticalAlignment="Center">
+            <StackPanel>
+                <StackPanel Margin="32"
+                            Width="340">
+
+                    <Image Height="60"
+                           Margin="0,0,0,16"
+                           Source="{StaticResource LogoDrawingImage}"
+                           Width="60" />
+
+                    <ui:TextBlock FontTypography="Subtitle"
+                                  HorizontalAlignment="Center"
+                                  Margin="0,0,0,16">
+                        Настройка базы данных
+                    </ui:TextBlock>
+
+                    <ui:TextBlock FontTypography="Body"
+                                  TextWrapping="Wrap"
+                                  Margin="0 0 0 32">
+                        Для дальнейшей работы необходимо подключиться к базе данных.
+                    </ui:TextBlock>
+
+                    <ui:TextBox Margin="0,0,0,24"
+                                PlaceholderText="Сервер"
+                                Text="{Binding ViewModel.Server, Mode=OneWayToSource, UpdateSourceTrigger=PropertyChanged, ValidatesOnNotifyDataErrors=False}" />
+
+                    <ui:TextBox Margin="0,0,0,24"
+                                PlaceholderText="База данных"
+                                Text="{Binding ViewModel.Db, Mode=OneWayToSource, UpdateSourceTrigger=PropertyChanged, ValidatesOnNotifyDataErrors=False}" />
+
+                    <ui:Button Appearance="Primary"
+                               Command="{Binding ViewModel.ConnectToDbCommand}"
+                               Content="Подключиться"
+                               HorizontalAlignment="Stretch"
+                               Margin="0,0,0,8" />
+
+                    <ui:TextBlock FontTypography="Caption"
+                                  TextWrapping="Wrap">
+                        *если базы данных с предоставленным названием не существует, она будет создана
+                    </ui:TextBlock>
+                </StackPanel>
+
+                <ProgressBar IsIndeterminate="True"
+                             Visibility="{Binding ViewModel.ProgressBarVisibility}" />
+            </StackPanel>
+        </ui:Card>
+    </Grid>
+</Page>
