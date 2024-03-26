@@ -17,7 +17,7 @@ public interface ISignService
     /// <param name="ct">Cancellation token for async operations.</param>
     /// <returns>A task representing the asynchronous operation, containing true if authorization succeeds, otherwise false.</returns>
     /// <exception cref="OperationCanceledException">Thrown when the operation is cancelled.</exception>
-    public Task<bool> AuthorizeAsync(string userName, string password, CancellationToken ct = default);
+    public Task<bool> SignInAsync(string userName, string password, CancellationToken ct = default);
 
     /// <summary>
     ///     Asynchronously registers a new user using the provided registration data.
@@ -31,7 +31,7 @@ public interface ISignService
     /// <exception cref="ArgumentNullException">Thrown when the provided registration data transfer object is null.</exception>
     /// <exception cref="DbUpdateConcurrencyException">Thrown when a database concurrency error occurs during registration.</exception>
     /// <exception cref="OperationCanceledException">Thrown when the operation is cancelled through the cancellation token.</exception>
-    public Task<bool> RegisterAsync(RegistrationDto regDto, CancellationToken ct = default);
+    public Task RegisterAsync(RegistrationDto regDto, CancellationToken ct = default);
 }
 
 /// <summary>
@@ -55,7 +55,7 @@ public class SignService : ISignService
     }
 
     /// <inheritdoc />
-    public async Task<bool> AuthorizeAsync(string userName, string password, CancellationToken ct = default)
+    public async Task<bool> SignInAsync(string userName, string password, CancellationToken ct = default)
     {
         if (string.IsNullOrEmpty(userName) || string.IsNullOrEmpty(password))
             return false;
@@ -65,7 +65,7 @@ public class SignService : ISignService
     }
 
     /// <inheritdoc />
-    public async Task<bool> RegisterAsync(RegistrationDto regDto, CancellationToken ct = default)
+    public async Task RegisterAsync(RegistrationDto regDto, CancellationToken ct = default)
     {
         ArgumentNullException.ThrowIfNull(regDto);
 
@@ -85,7 +85,6 @@ public class SignService : ISignService
         _dbContext.Users.Add(user);
 
         await _dbContext.SaveChangesAsync(ct);
-        return true;
     }
 
     private async Task<User?> GetUserAsync(string userName, CancellationToken ct = default)

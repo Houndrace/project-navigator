@@ -1,6 +1,7 @@
 ﻿using System.Windows;
 using System.Windows.Media;
 using project_navigator.services;
+using project_navigator.Services;
 using Wpf.Ui;
 using Wpf.Ui.Appearance;
 
@@ -12,14 +13,13 @@ namespace project_navigator.views.windows;
 public partial class MainWindow
 {
     public MainWindow(IServiceProvider serviceProvider,
-        INavService navService,
-        ISnackbarService snackbarService)
+        INavService navService, INotificationService notificationService)
     {
         InitializeComponent();
 
+        notificationService.SetInfoBarPresenter(InfoBarPresenter);
         navService.SetServiceProvider(serviceProvider);
         navService.SetFrame(RootFrame);
-        snackbarService.SetSnackbarPresenter(SnackbarPresenter);
 
         var primaryBrush = (SolidColorBrush?)Application.Current.Resources["PrimaryBrush"];
         if (primaryBrush != null)

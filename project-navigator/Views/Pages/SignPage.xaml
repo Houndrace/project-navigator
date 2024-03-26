@@ -16,21 +16,15 @@
       Foreground="{DynamicResource TextFillColorPrimaryBrush}">
 
     <Grid Margin="16">
-        <ui:DropDownButton Content="{Binding ViewModel.ConnectionStatus}"
-                           HorizontalAlignment="Right"
-                           VerticalAlignment="Top"
-                           Icon="{Binding ViewModel.ConnectionIcon}">
-            <!-- TODO: довести до ума снизу -->
-            <ui:DropDownButton.Flyout>
-                <ContextMenu />
-            </ui:DropDownButton.Flyout>
-        </ui:DropDownButton>
+
 
         <ui:Card VerticalAlignment="Center"
                  HorizontalAlignment="Center"
                  Margin="0"
                  Padding="0">
             <StackPanel>
+                <ProgressBar IsIndeterminate="True"
+                             Visibility="{Binding ViewModel.ProgressBarVisibility}" />
                 <StackPanel Margin="32"
                             Width="340">
                     <Image Width="60"
@@ -53,12 +47,10 @@
                                     Margin="0 0 0 24" />
                     <ui:Button Appearance="Primary"
                                HorizontalAlignment="Stretch"
-                               Command="{Binding ViewModel.AuthorizeCommand}">
+                               Command="{Binding ViewModel.SignInCommand}">
                         Войти
                     </ui:Button>
                 </StackPanel>
-                <ProgressBar IsIndeterminate="True"
-                             Visibility="{Binding ViewModel.ProgressBarVisibility}" />
             </StackPanel>
         </ui:Card>
     </Grid>

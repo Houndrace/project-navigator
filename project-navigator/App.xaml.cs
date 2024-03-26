@@ -64,15 +64,7 @@ public partial class App
 
     private void OnStartup(object sender, StartupEventArgs e)
     {
-        try
-        {
-            Host.Start();
-        }
-        catch (Exception ex)
-        {
-            Log.Fatal(ex, ex.Message);
-            throw;
-        }
+        Host.Start();
     }
 
     private void OnExit(object sender, ExitEventArgs e)

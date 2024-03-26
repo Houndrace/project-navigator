@@ -1,61 +1,42 @@
-using System.ComponentModel.DataAnnotations;
-using System.Windows.Forms;
-using Wpf.Ui;
 using Wpf.Ui.Controls;
-using MessageBox = System.Windows.Forms.MessageBox;
 
 namespace project_navigator.Services;
 
-public enum MessageType
-{
-    None,
-    Error,
-    Info,
-    Warning,
-    Success
-}
-
 public interface INotificationService
 {
-    void DisplayMessage(string title, string content, MessageType messageType = MessageType.None,
+    void SetInfoBarPresenter(InfoBar infoBar);
+    void OpenInfoBar(string title, string message,
+        InfoBarSeverity severity = InfoBarSeverity.Informational,
         TimeSpan? timeout = null);
+
+    void CloseInfoBar();
 }
 
 public class NotificationService : INotificationService
 {
-    private readonly ISnackbarService _snackbarService;
+    private InfoBar? _infoBarPrersenter;
 
-    public NotificationService(ISnackbarService snackbarService)
+    public void SetInfoBarPresenter(InfoBar infoBar)
     {
-        _snackbarService = snackbarService;
+        _infoBarPrersenter = infoBar;
     }
 
-    public void DisplayMessage(string title, string content, MessageType messageType = MessageType.None,
+    public void OpenInfoBar(string title, string message,
+        InfoBarSeverity severity = InfoBarSeverity.Informational,
         TimeSpan? timeout = null)
     {
-        var icon = new SymbolIcon();
-        var realTimeout = timeout ?? TimeSpan.FromSeconds(5);
+        ArgumentNullException.ThrowIfNull(_infoBarPrersenter);
+        //var realTimeout = timeout ?? TimeSpan.FromSeconds(5);
+        _infoBarPrersenter.Title = title;
+        _infoBarPrersenter.Message = message;
+        _infoBarPrersenter.Severity = severity;
+        _infoBarPrersenter.IsOpen = true;
+    }
 
-        switch (messageType)
-        {
-            case MessageType.None:
-                icon = null;
-                break;
-            case MessageType.Error:
-                icon.Symbol = SymbolRegular.ErrorCircle20;
-                break;
-            case MessageType.Info:
-                icon.Symbol = SymbolRegular.Info20;
-                break;
-            case MessageType.Warning:
-                icon.Symbol = SymbolRegular.Warning20;
-                break;
-            case MessageType.Success:
-                icon.Symbol = SymbolRegular.CheckmarkCircle20;
-                break;
-        }
+    public void CloseInfoBar()
+    {
+        ArgumentNullException.ThrowIfNull(_infoBarPrersenter);
 
-        _snackbarService.Show(title, content, ControlAppearance.Secondary,
-            icon, realTimeout);
+        _infoBarPrersenter.IsOpen = false;
     }
 }

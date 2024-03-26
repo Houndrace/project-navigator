@@ -25,7 +25,11 @@
         <ui:TitleBar Grid.Row="0" />
         <Frame Grid.Row="1"
                Name="RootFrame" />
-        <ui:SnackbarPresenter Grid.Row="1"
-                              x:Name="SnackbarPresenter" />
+        <ui:InfoBar Name="InfoBarPresenter"
+                    Grid.Row="1"
+                    Margin="16"
+                    HorizontalAlignment="Right"
+                    VerticalAlignment="Top"
+                    MaxWidth="400" />
     </Grid>
 </ui:FluentWindow>

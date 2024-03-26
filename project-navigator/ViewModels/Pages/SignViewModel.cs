@@ -16,14 +16,12 @@ public partial class SignViewModel : ObservableValidator
 {
     private readonly INavService _navService;
     private readonly INotificationService _notificationService;
+    private readonly AppContext _appContext;
     private readonly ISignService _signService;
-    [ObservableProperty] private SymbolRegular _connectionIcon = SymbolRegular.DatabaseWarning20;
-
-    [ObservableProperty] private string _connectionStatus = "Не подключено";
 
     [ObservableProperty]
     [Required(ErrorMessage = "Необходимо ввести пароль")]
-    [MinLength(8, ErrorMessage = "Минимальная длина пароля 8 знаков")]
+    [MinLength(5, ErrorMessage = "Минимальная длина пароля 5 знаков")]
     [MaxLength(50, ErrorMessage = "Максимальная длина пароля 50 знаков")]
     private string _password = "";
 
@@ -41,52 +39,67 @@ public partial class SignViewModel : ObservableValidator
         _signService = signService;
         _navService = navService;
         _notificationService = notificationService;
+        _appContext = appContext;
 
-        var connectionTask = appContext.Database.CanConnectAsync();
+        InitializeConnectionAsync().Wait();
+    }
 
-        if (connectionTask.Result)
-        {
-            ConnectionStatus = "Подключено";
-            ConnectionIcon = SymbolRegular.Database20;
-        }
+
+    private Task InitializeConnectionAsync()
+    {
+        if (!_appContext.Database.CanConnectAsync().Result)
+            _notificationService.OpenInfoBar(ValidationHelper.SignInErrorTitle,
+                ValidationHelper.DbConnectionErrorMessage,
+                InfoBarSeverity.Error);
+
+        return Task.CompletedTask;
     }
 
     [RelayCommand]
-    private async Task<bool> Authorize()
+    private async Task SignInAsync()
     {
+        _notificationService.CloseInfoBar();
         ValidateAllProperties();
         if (HasErrors)
         {
-            Log.Error("Пользователь ввел неверные данные");
-            _notificationService.DisplayMessage(ValidationHelper.IncorrectDataTitle,
+            Log.Error("The user entered incorrect data");
+            _notificationService.OpenInfoBar(ValidationHelper.IncorrectDataTitle,
                 ValidationHelper.ConcatenateErrors(GetErrors()),
-                MessageType.Warning,
-                Timeout.InfiniteTimeSpan);
-            return false;
+                InfoBarSeverity.Error);
+            return;
         }
 
         try
         {
             ProgressBarVisibility = Visibility.Visible;
+            await Task.Delay(TimeSpan.FromSeconds(5));
 
-            if (!await _signService.AuthorizeAsync(Username, Password))
+            if (!await _signService.SignInAsync(Username, Password))
             {
-                _notificationService.DisplayMessage(ValidationHelper.SignInErrorTitle,
-                    ValidationHelper.SignInErrorMessage);
-                return false;
+                _notificationService.OpenInfoBar(ValidationHelper.SignInErrorTitle,
+                    ValidationHelper.SignInErrorMessage,
+                    InfoBarSeverity.Error);
+                return;
             }
         }
         catch (OperationCanceledException e)
         {
-            Log.Error(e, e.Message);
-            return false;
+            Log.Error(e, "The Sign In operation was canceled");
+            return;
+        }
+        catch (Exception e)
+        {
+            Log.Error(e, "A Sign In error occurred");
+            _notificationService.OpenInfoBar(ValidationHelper.SignInErrorTitle,
+                ValidationHelper.DbConnectionErrorMessage,
+                InfoBarSeverity.Error);
+            return;
         }
         finally
         {
             ProgressBarVisibility = Visibility.Hidden;
         }
-
+        
         _navService.Navigate<MainContentPage>();
-        return true;
     }
 }

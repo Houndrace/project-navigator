@@ -48,27 +48,11 @@ public class ApplicationHostService : IHostedService
         if (Application.Current.Windows.OfType<MainWindow>().Any()) return Task.CompletedTask;
 
         var mainWindow = _serviceProvider.GetRequiredService<MainWindow>();
-        mainWindow.Loaded += OnMainWindowLoaded;
-        mainWindow.Show();
-
-        return Task.CompletedTask;
-    }
-
-    private async void OnMainWindowLoaded(object sender, RoutedEventArgs e)
-    {
-        if (sender is not MainWindow mainWindow) return;
-
-        try
-        {
-            await _dataInitializer.Initialize();
-        }
-        catch (Exception ex)
-        {
-            Log.Error(ex, "Ошибка инициализации данных по умолчанию");
-        }
 
         // TODO: Реализовать первый запуск после установки
         //_navService.Navigate<MainContentPage>();
         _navService.Navigate<SignPage>();
+        mainWindow.Show();
+        return Task.CompletedTask;
     }
 }
