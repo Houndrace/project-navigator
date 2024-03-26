@@ -33,7 +33,6 @@
         <PackageReference Include="Newtonsoft.Json" Version="13.0.3"/>
         <PackageReference Include="Serilog" Version="3.1.1"/>
         <PackageReference Include="Serilog.Sinks.Console" Version="5.0.1"/>
-        <PackageReference Include="WPF-UI" Version="3.0.3"/>
     </ItemGroup>
 
     <ItemGroup>
@@ -73,6 +72,10 @@
 
     <ItemGroup>
         <None Remove="project_navigator.ico"/>
+    </ItemGroup>
+
+    <ItemGroup>
+        <ProjectReference Include="..\Wpf.Ui\Wpf.Ui.csproj"/>
     </ItemGroup>
 
 </Project>

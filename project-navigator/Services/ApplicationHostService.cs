@@ -3,6 +3,7 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using project_navigator.db;
 using project_navigator.Views.Pages;
+using project_navigator.Views.Pages.MainContent;
 using project_navigator.views.windows;
 using Serilog;
 
@@ -60,8 +61,8 @@ public class ApplicationHostService : IHostedService
             Log.Error(e, "Data initialization error");
         }
 
-        //_navService.Navigate<MainContentPage>();
-        _navService.Navigate<SignPage>();
+        _navService.Navigate<MainContentPage>();
+        //_navService.Navigate<SignPage>();
         mainWindow.Show();
     }
 }

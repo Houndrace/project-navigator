@@ -9,10 +9,10 @@
       Title="SettingsPage"
       d:DataContext="{d:DesignInstance local:SettingsPage,
                                      IsDesignTimeCreatable=False}"
-      d:DesignHeight="600"
-      d:DesignWidth="1200"
       ui:Design.Background="{DynamicResource ApplicationBackgroundBrush}"
       ui:Design.Foreground="{DynamicResource TextFillColorPrimaryBrush}"
-      Foreground="{DynamicResource TextFillColorPrimaryBrush}">
+      Foreground="{DynamicResource TextFillColorPrimaryBrush}"
+      d:DesignHeight="600"
+      d:DesignWidth="1200">
     <Grid />
 </Page>

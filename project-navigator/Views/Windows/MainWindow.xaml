@@ -23,7 +23,8 @@
             <RowDefinition Height="Auto" />
             <RowDefinition />
         </Grid.RowDefinitions>
-        <ui:TitleBar Grid.Row="0" />
+        <ui:TitleBar Grid.Row="0"
+                     Height="Auto" />
 
         <Frame Grid.Row="1"
                Name="RootFrame" />

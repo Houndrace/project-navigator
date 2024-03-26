@@ -1,9 +1,10 @@
-﻿using System.Windows;
+﻿using System.Windows.Forms;
 using System.Windows.Media;
 using project_navigator.services;
 using project_navigator.Services;
 using Wpf.Ui;
 using Wpf.Ui.Appearance;
+using Application = System.Windows.Application;
 
 namespace project_navigator.views.windows;
 
