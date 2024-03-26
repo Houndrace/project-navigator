@@ -26,9 +26,13 @@ public class ApplicationHostService : IHostedService
     ///     Triggered when the application host is ready to start the service.
     /// </summary>
     /// <param name="cancellationToken">Indicates that the start process has been aborted.</param>
-    public Task StartAsync(CancellationToken cancellationToken)
+    public async Task StartAsync(CancellationToken cancellationToken)
     {
-        return HandleActivationAsync();
+        var splashScreen = _serviceProvider.GetRequiredService<SplashScreenWindow>();
+        splashScreen.Show();
+        await Task.Delay(TimeSpan.FromSeconds(4));
+        await HandleActivationAsync();
+        splashScreen.Close();
     }
 
     /// <summary>
@@ -40,28 +44,24 @@ public class ApplicationHostService : IHostedService
         return Task.CompletedTask;
     }
 
-    /// <summary>
-    ///     Creates main window during activation.
-    /// </summary>
-    private Task HandleActivationAsync()
+    private async Task HandleActivationAsync()
     {
-        if (Application.Current.Windows.OfType<MainWindow>().Any()) return Task.CompletedTask;
+        if (Application.Current.Windows.OfType<MainWindow>().Any()) return;
 
         var mainWindow = _serviceProvider.GetRequiredService<MainWindow>();
 
         // TODO: Реализовать первый запуск после установки
         try
         {
-            _dataInitializer.Initialize();
+            await _dataInitializer.InitializeAsync();
         }
         catch (Exception e)
         {
-            Log.Error(e,"Data initialization error");
+            Log.Error(e, "Data initialization error");
         }
 
         //_navService.Navigate<MainContentPage>();
         _navService.Navigate<SignPage>();
         mainWindow.Show();
-        return Task.CompletedTask;
     }
 }

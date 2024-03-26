@@ -38,6 +38,8 @@ public partial class App
 
                 // Main window container
                 services.AddSingleton<MainWindow>();
+                // SplashScreen window
+                services.AddSingleton<SplashScreenWindow>();
                 // Services and helpers
                 services.AddSingleton<INavService, NavService>(); // Global navigation
                 services.AddSingleton<INavigationService, NavigationService>(); // Main content navigation
@@ -64,7 +66,7 @@ public partial class App
 
     private void OnStartup(object sender, StartupEventArgs e)
     {
-        Host.Start();
+        Host.StartAsync();
     }
 
     private void OnExit(object sender, ExitEventArgs e)
