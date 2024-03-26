@@ -57,7 +57,7 @@
     <ItemGroup>
         <None Remove="project-navigator.ico"/>
         <None Update="config.json">
-            <CopyToOutputDirectory>Never</CopyToOutputDirectory>
+            <CopyToOutputDirectory>Always</CopyToOutputDirectory>
         </None>
     </ItemGroup>
 

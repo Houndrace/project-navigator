@@ -50,6 +50,15 @@ public class ApplicationHostService : IHostedService
         var mainWindow = _serviceProvider.GetRequiredService<MainWindow>();
 
         // TODO: Реализовать первый запуск после установки
+        try
+        {
+            _dataInitializer.Initialize();
+        }
+        catch (Exception e)
+        {
+            Log.Error(e,"Data initialization error");
+        }
+
         //_navService.Navigate<MainContentPage>();
         _navService.Navigate<SignPage>();
         mainWindow.Show();
