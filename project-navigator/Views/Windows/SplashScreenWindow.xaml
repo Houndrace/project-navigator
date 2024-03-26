@@ -7,20 +7,21 @@
                  mc:Ignorable="d"
                  ui:Design.Background="{DynamicResource ApplicationBackgroundBrush}"
                  ui:Design.Foreground="{DynamicResource TextFillColorPrimaryBrush}"
+                 Foreground="{DynamicResource TextFillColorPrimaryBrush}"
                  Title="{StaticResource ProjectTitle}"
-                 Width="{StaticResource SplashScreenWidth}"
-                 Height="{StaticResource SplashScreenHeight}"
-                 MinWidth="{StaticResource SplashScreenWidth}"
-                 MinHeight="{StaticResource SplashScreenHeight}"
-                 d:DesignWidth="640"
-                 d:DesignHeight="400"
                  WindowStartupLocation="CenterScreen"
-                 ExtendsContentIntoTitleBar="True">
+                 WindowCornerPreference="Round"
+                 ExtendsContentIntoTitleBar="True"
+                 Width="640"
+                 Height="400"
+                 d:DesignWidth="640"
+                 d:DesignHeight="400">
     <Grid>
         <Image Source="{StaticResource SplashScreenDrawingImage}" />
-        <ui:ProgressRing Margin="48 0 0 48"
-                         HorizontalAlignment="Left"
+
+        <ui:ProgressRing HorizontalAlignment="Left"
                          VerticalAlignment="Bottom"
-                         IsIndeterminate="True" />
+                         IsIndeterminate="True"
+                         Margin="48 0 0 48" />
     </Grid>
 </ui:FluentWindow>

@@ -15,9 +15,11 @@
       ui:Design.Foreground="{DynamicResource TextFillColorPrimaryBrush}"
       Foreground="{DynamicResource TextFillColorPrimaryBrush}">
     <Grid>
-        <ui:NavigationView FooterMenuItemsSource="{Binding ViewModel.FooterMenuItems, Mode=OneWay}"
+        <ui:NavigationView Name="NavigationView"
+                           FooterMenuItemsSource="{Binding ViewModel.FooterMenuItems, Mode=OneWay}"
                            MenuItemsSource="{Binding ViewModel.MenuItems, Mode=OneWay}"
-                           Name="NavigationView" />
+                            Transition="FadeInWithSlide"
+                           />
 
     </Grid>
 </Page>

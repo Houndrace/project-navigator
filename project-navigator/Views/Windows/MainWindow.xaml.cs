@@ -15,12 +15,12 @@ public partial class MainWindow
     public MainWindow(IServiceProvider serviceProvider,
         INavService navService, INotificationService notificationService)
     {
+        SystemThemeWatcher.Watch(this, updateAccents: false);
         InitializeComponent();
 
         notificationService.SetInfoBarPresenter(InfoBarPresenter);
         navService.SetServiceProvider(serviceProvider);
         navService.SetFrame(RootFrame);
-
         var primaryBrush = (SolidColorBrush?)Application.Current.Resources["PrimaryBrush"];
         if (primaryBrush != null)
             ApplicationAccentColorManager.Apply(primaryBrush.Color);

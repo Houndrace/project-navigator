@@ -30,7 +30,7 @@ public class ApplicationHostService : IHostedService
     {
         var splashScreen = _serviceProvider.GetRequiredService<SplashScreenWindow>();
         splashScreen.Show();
-        await Task.Delay(TimeSpan.FromSeconds(4));
+        //await Task.Delay(TimeSpan.FromSeconds(4));
         await HandleActivationAsync();
         splashScreen.Close();
     }

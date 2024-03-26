@@ -72,7 +72,7 @@ public partial class SignViewModel : ObservableValidator
         try
         {
             ProgressBarVisibility = Visibility.Visible;
-            await Task.Delay(TimeSpan.FromSeconds(4));
+            //await Task.Delay(TimeSpan.FromSeconds(5));
 
             if (!await _signService.SignInAsync(Username, Password))
             {
@@ -99,7 +99,7 @@ public partial class SignViewModel : ObservableValidator
         {
             ProgressBarVisibility = Visibility.Hidden;
         }
-        
+
         _navService.Navigate<MainContentPage>();
     }
 }

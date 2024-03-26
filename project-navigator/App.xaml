@@ -9,9 +9,9 @@
             <ResourceDictionary.MergedDictionaries>
                 <ui:ThemesDictionary Theme="Dark" />
                 <ui:ControlsDictionary />
-                <ResourceDictionary Source="/Resources/Constants.xaml" />
+                <ResourceDictionary Source="../../Resources/Brushes.xaml" />
+                <ResourceDictionary Source="../../Resources/Strings.xaml" />
                 <ResourceDictionary Source="/Resources/Branding.xaml" />
-
             </ResourceDictionary.MergedDictionaries>
         </ResourceDictionary>
     </Application.Resources>

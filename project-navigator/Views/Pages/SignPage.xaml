@@ -9,47 +9,70 @@
       Title="AuthorizationPage"
       d:DataContext="{d:DesignInstance pages:SignPage,
                                      IsDesignTimeCreatable=False}"
-      d:DesignHeight="600"
-      d:DesignWidth="1200"
       ui:Design.Background="{DynamicResource ApplicationBackgroundBrush}"
       ui:Design.Foreground="{DynamicResource TextFillColorPrimaryBrush}"
-      Foreground="{DynamicResource TextFillColorPrimaryBrush}">
-
-    <Grid Margin="16">
-
-
+      Foreground="{DynamicResource TextFillColorPrimaryBrush}"
+      d:DesignHeight="600"
+      d:DesignWidth="1200">
+    <Grid Margin="48">
         <ui:Card VerticalAlignment="Center"
-                 HorizontalAlignment="Center"
+                 HorizontalAlignment="Stretch"
                  Margin="0"
-                 Padding="0">
-            <StackPanel>
+                 Padding="0"
+                 MaxWidth="1040"
+                 MinWidth="640">
+            <StackPanel MinHeight="400">
                 <ProgressBar IsIndeterminate="True"
-                             Visibility="{Binding ViewModel.ProgressBarVisibility}" />
-                <StackPanel Margin="32"
-                            Width="340">
-                    <Image Width="60"
-                           Height="60"
+                             HorizontalAlignment="Stretch"
+                             Visibility="{Binding ViewModel.ProgressBarVisibility}"
+                             MaxWidth="720" />
+
+                <StackPanel Margin="32">
+                    <Image HorizontalAlignment="Left"
                            Source="{StaticResource LogoDrawingImage}"
-                           Margin="0 0 0 16" />
+                           Margin="0 0 0 24"
+                           Width="60"
+                           Height="60" />
 
-                    <ui:TextBlock HorizontalAlignment="Center"
-                                  FontTypography="Subtitle"
-                                  Margin="0 0 0 32">
-                        Вход Навигатор проектов
-                    </ui:TextBlock>
+                    <Grid>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition />
+                            <ColumnDefinition />
+                        </Grid.ColumnDefinitions>
+                        <StackPanel Grid.Column="0"
+                                    HorizontalAlignment="Stretch"
+                                    Margin="0 0 16 0">
+                            <ui:TextBlock FontTypography="TitleLarge"
+                                          Margin="0 0 0 12">
+                                Вход
+                            </ui:TextBlock>
 
-                    <ui:TextBox PlaceholderText="Имя пользователя"
-                                Text="{Binding ViewModel.Username,  Mode=OneWayToSource, UpdateSourceTrigger=PropertyChanged, ValidatesOnNotifyDataErrors=False}"
-                                Margin="0 0 0 24" />
+                            <ui:TextBlock FontTypography="Body"
+                                          Margin="0 0 0 32">
+                                Используйте аккаунт Навигатор проектов
+                            </ui:TextBlock>
+                        </StackPanel>
 
-                    <ui:PasswordBox PlaceholderText="Пароль"
-                                    Password="{Binding ViewModel.Password, Mode=OneWayToSource, UpdateSourceTrigger=PropertyChanged,ValidatesOnNotifyDataErrors=False}"
-                                    Margin="0 0 0 24" />
-                    <ui:Button Appearance="Primary"
-                               HorizontalAlignment="Stretch"
-                               Command="{Binding ViewModel.SignInCommand}">
-                        Войти
-                    </ui:Button>
+                        <StackPanel Grid.Column="1"
+                                    HorizontalAlignment="Stretch"
+                                    Margin="16 16 0 0"
+                                    MinWidth="300"
+                                    MaxWidth="500">
+                            <ui:TextBox PlaceholderText="Имя пользователя"
+                                        Text="{Binding ViewModel.Username,  Mode=OneWayToSource, UpdateSourceTrigger=PropertyChanged, ValidatesOnNotifyDataErrors=False}"
+                                        Margin="0 0 0 24" />
+
+                            <ui:PasswordBox PlaceholderText="Пароль"
+                                            Password="{Binding ViewModel.Password, Mode=OneWayToSource, UpdateSourceTrigger=PropertyChanged,ValidatesOnNotifyDataErrors=False}"
+                                            Margin="0 0 0 24" />
+
+                            <ui:Button Appearance="Primary"
+                                       HorizontalAlignment="Right"
+                                       Command="{Binding ViewModel.SignInCommand}">
+                                Войти
+                            </ui:Button>
+                        </StackPanel>
+                    </Grid>
                 </StackPanel>
             </StackPanel>
         </ui:Card>

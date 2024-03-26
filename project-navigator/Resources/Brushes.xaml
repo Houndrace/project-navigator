@@ -1,0 +1,5 @@
+<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+    <SolidColorBrush x:Key="PrimaryBrush">#FF3178C6</SolidColorBrush>
+    <SolidColorBrush x:Key="OnPrimaryLogoBrush">#FFFAF9F8</SolidColorBrush>
+</ResourceDictionary>
