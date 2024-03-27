@@ -78,4 +78,11 @@
         <ProjectReference Include="..\Wpf.Ui\Wpf.Ui.csproj"/>
     </ItemGroup>
 
+    <ItemGroup>
+        <None Remove="Branding\project_navigator.ico"/>
+        <Resource Include="Branding\project_navigator.ico">
+            <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+        </Resource>
+    </ItemGroup>
+
 </Project>

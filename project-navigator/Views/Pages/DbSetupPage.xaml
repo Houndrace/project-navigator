@@ -28,17 +28,15 @@
                            Source="{StaticResource LogoDrawingImage}"
                            Width="60" />
 
-                    <ui:TextBlock FontTypography="Subtitle"
-                                  HorizontalAlignment="Center"
-                                  Margin="0,0,0,16">
+                    <TextBlock HorizontalAlignment="Center"
+                               Margin="0,0,0,16">
                         Настройка базы данных
-                    </ui:TextBlock>
+                    </TextBlock>
 
-                    <ui:TextBlock FontTypography="Body"
-                                  TextWrapping="Wrap"
-                                  Margin="0 0 0 32">
+                    <TextBlock TextWrapping="Wrap"
+                               Margin="0 0 0 32">
                         Для дальнейшей работы необходимо подключиться к базе данных.
-                    </ui:TextBlock>
+                    </TextBlock>
 
                     <ui:TextBox Margin="0,0,0,24"
                                 PlaceholderText="Сервер"
@@ -54,10 +52,9 @@
                                HorizontalAlignment="Stretch"
                                Margin="0,0,0,8" />
 
-                    <ui:TextBlock FontTypography="Caption"
-                                  TextWrapping="Wrap">
+                    <TextBlock TextWrapping="Wrap">
                         *если базы данных с предоставленным названием не существует, она будет создана
-                    </ui:TextBlock>
+                    </TextBlock>
                 </StackPanel>
 
                 <ProgressBar IsIndeterminate="True"

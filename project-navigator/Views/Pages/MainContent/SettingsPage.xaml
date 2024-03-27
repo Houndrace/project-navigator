@@ -14,5 +14,7 @@
       Foreground="{DynamicResource TextFillColorPrimaryBrush}"
       d:DesignHeight="600"
       d:DesignWidth="1200">
-    <Grid />
+    <Grid Margin="32">
+        <TextBlock>Настройки</TextBlock>
+    </Grid>
 </Page>

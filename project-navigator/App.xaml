@@ -12,6 +12,7 @@
                 <ResourceDictionary Source="../../Resources/Brushes.xaml" />
                 <ResourceDictionary Source="../../Resources/Strings.xaml" />
                 <ResourceDictionary Source="/Resources/Branding.xaml" />
+                <ResourceDictionary Source="/Resources/MaterialTypography.xaml" />
             </ResourceDictionary.MergedDictionaries>
         </ResourceDictionary>
     </Application.Resources>

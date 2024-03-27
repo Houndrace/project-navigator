@@ -13,7 +13,7 @@ public partial class MainContentViewModel : ObservableObject
     [ObservableProperty] private ICollection<object> _footerMenuItems = new ObservableCollection<object>
     {
         new NavigationViewItem("Администрирование", SymbolRegular.PeopleToolbox20, typeof(DashboardPage)),
-        new NavigationViewItem("Настройки", SymbolRegular.Settings24, typeof(DashboardPage))
+        new NavigationViewItem("Настройки", SymbolRegular.Settings24, typeof(SettingsPage))
     };
 
     [ObservableProperty] private ICollection<object> _menuItems = new ObservableCollection<object>

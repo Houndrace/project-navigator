@@ -16,7 +16,14 @@
                  Height="400"
                  d:DesignWidth="640"
                  d:DesignHeight="400">
-    <Grid>
+    <Grid x:Name="SplashScreenContainer">
+        <ui:TitleBar ShowClose="False"
+                     ShowMaximize="False"
+                     ShowMinimize="False"
+                     Width="{Binding  Width, ElementName=SplashScreenContainer}"
+                     Height="{Binding  Height, ElementName=SplashScreenContainer}"
+                     HorizontalAlignment="Stretch"
+                     VerticalAlignment="Stretch" />
         <Image Source="{StaticResource SplashScreenDrawingImage}" />
 
         <ui:ProgressRing HorizontalAlignment="Left"

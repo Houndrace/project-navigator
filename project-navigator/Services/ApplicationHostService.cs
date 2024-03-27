@@ -61,8 +61,8 @@ public class ApplicationHostService : IHostedService
             Log.Error(e, "Data initialization error");
         }
 
-        _navService.Navigate<MainContentPage>();
-        //_navService.Navigate<SignPage>();
+        //_navService.Navigate<MainContentPage>();
+        _navService.Navigate<SignPage>();
         mainWindow.Show();
     }
 }

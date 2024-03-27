@@ -14,10 +14,18 @@
       Foreground="{DynamicResource TextFillColorPrimaryBrush}"
       d:DesignHeight="600"
       d:DesignWidth="1200">
-    <Grid Margin="48">
-        <ui:Card VerticalAlignment="Center"
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="auto" />
+            <RowDefinition />
+        </Grid.RowDefinitions>
+        <ui:TitleBar Grid.Row="0"
+                     Height="auto" />
+
+        <ui:Card Grid.Row="1"
+                 VerticalAlignment="Center"
                  HorizontalAlignment="Stretch"
-                 Margin="0"
+                 Margin="48"
                  Padding="0"
                  MaxWidth="1040"
                  MinWidth="640">
@@ -42,20 +50,19 @@
                         <StackPanel Grid.Column="0"
                                     HorizontalAlignment="Stretch"
                                     Margin="0 0 16 0">
-                            <ui:TextBlock FontTypography="TitleLarge"
-                                          Margin="0 0 0 12">
+                            <TextBlock Style="{StaticResource HeadlineTextBlockStyle}"
+                                       Margin="0 0 0 12">
                                 Вход
-                            </ui:TextBlock>
+                            </TextBlock>
 
-                            <ui:TextBlock FontTypography="Body"
-                                          Margin="0 0 0 32">
+                            <TextBlock Margin="0 0 0 32">
                                 Используйте аккаунт Навигатор проектов
-                            </ui:TextBlock>
+                            </TextBlock>
                         </StackPanel>
 
                         <StackPanel Grid.Column="1"
                                     HorizontalAlignment="Stretch"
-                                    Margin="16 16 0 0"
+                                    Margin="16 0 0 0"
                                     MinWidth="300"
                                     MaxWidth="500">
                             <ui:TextBox PlaceholderText="Имя пользователя"
@@ -76,5 +83,6 @@
                 </StackPanel>
             </StackPanel>
         </ui:Card>
+
     </Grid>
 </Page>
