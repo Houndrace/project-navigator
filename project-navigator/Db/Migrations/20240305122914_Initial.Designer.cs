@@ -10,7 +10,7 @@ using project_navigator.db;
 
 namespace project_navigator.db.migrations
 {
-    [DbContext(typeof(AppContext))]
+    [DbContext(typeof(AppDbContext))]
     [Migration("20240305122914_Initial")]
     partial class Initial
     {

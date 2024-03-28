@@ -7,11 +7,11 @@
                  mc:Ignorable="d"
                  ui:Design.Background="{DynamicResource ApplicationBackgroundBrush}"
                  ui:Design.Foreground="{DynamicResource TextFillColorPrimaryBrush}"
-                 Foreground="{DynamicResource TextFillColorPrimaryBrush}"
                  WindowCornerPreference="Round"
                  Title="{DynamicResource ProjectTitle}"
                  WindowStartupLocation="CenterScreen"
                  ExtendsContentIntoTitleBar="True"
+                 WindowBackdropType="Mica"
                  Width="1440"
                  Height="900"
                  MinHeight="600"
@@ -19,11 +19,13 @@
                  d:DesignHeight="600"
                  d:DesignWidth="1200">
     <Grid>
+
         <Grid.RowDefinitions>
             <RowDefinition Height="Auto" />
             <RowDefinition />
         </Grid.RowDefinitions>
-
+        <ui:TitleBar Grid.Row="0"
+                     Height="auto" />
         <Frame Grid.Row="1"
                Name="RootFrame" />
 

@@ -1,6 +1,6 @@
 using Microsoft.EntityFrameworkCore;
+using project_navigator.db;
 using project_navigator.models;
-using AppContext = project_navigator.db.AppContext;
 
 namespace project_navigator.services;
 
@@ -9,6 +9,8 @@ namespace project_navigator.services;
 /// </summary>
 public interface ISignService
 {
+    User? LastSignedInUser { get; }
+
     /// <summary>
     ///     Asynchronously authorizes a user based on username and password.
     /// </summary>
@@ -17,7 +19,7 @@ public interface ISignService
     /// <param name="ct">Cancellation token for async operations.</param>
     /// <returns>A task representing the asynchronous operation, containing true if authorization succeeds, otherwise false.</returns>
     /// <exception cref="OperationCanceledException">Thrown when the operation is cancelled.</exception>
-    public Task<bool> SignInAsync(string userName, string password, CancellationToken ct = default);
+    Task<bool> SignInAsync(string userName, string password, CancellationToken ct = default);
 
     /// <summary>
     ///     Asynchronously registers a new user using the provided registration data.
@@ -31,7 +33,7 @@ public interface ISignService
     /// <exception cref="ArgumentNullException">Thrown when the provided registration data transfer object is null.</exception>
     /// <exception cref="DbUpdateConcurrencyException">Thrown when a database concurrency error occurs during registration.</exception>
     /// <exception cref="OperationCanceledException">Thrown when the operation is cancelled through the cancellation token.</exception>
-    public Task RegisterAsync(RegistrationDto regDto, CancellationToken ct = default);
+    Task RegisterAsync(RegistrationDto regDto, CancellationToken ct = default);
 }
 
 /// <summary>
@@ -40,19 +42,21 @@ public interface ISignService
 /// </summary>
 public class SignService : ISignService
 {
-    private readonly AppContext _dbContext;
+    private readonly AppDbContext _dbDbContext;
     private readonly IHashService _hashService;
 
     /// <summary>
     ///     Initializes a new instance of the UserService class.
     /// </summary>
     /// <param name="hashService">The service used for hashing passwords.</param>
-    /// <param name="dbContext">The database context used for data access.</param>
-    public SignService(IHashService hashService, AppContext dbContext)
+    /// <param name="dbDbContext">The database context used for data access.</param>
+    public SignService(IHashService hashService, AppDbContext dbDbContext)
     {
         _hashService = hashService ?? throw new ArgumentNullException(nameof(hashService));
-        _dbContext = dbContext ?? throw new ArgumentNullException(nameof(dbContext));
+        _dbDbContext = dbDbContext ?? throw new ArgumentNullException(nameof(dbDbContext));
     }
+
+    public User? LastSignedInUser { get; private set; }
 
     /// <inheritdoc />
     public async Task<bool> SignInAsync(string userName, string password, CancellationToken ct = default)
@@ -61,7 +65,12 @@ public class SignService : ISignService
             return false;
 
         var suggestedUser = await GetUserAsync(userName, ct);
-        return suggestedUser?.HashedPassword == _hashService.HashString(password);
+
+        if (suggestedUser?.HashedPassword != _hashService.HashString(password))
+            return false;
+
+        LastSignedInUser = suggestedUser;
+        return true;
     }
 
     /// <inheritdoc />
@@ -82,13 +91,15 @@ public class SignService : ISignService
         if (existentUser != null)
             throw new InvalidOperationException($"A user with the username '{regDto.UserName}' already exists.");
 
-        _dbContext.Users.Add(user);
+        _dbDbContext.Users.Add(user);
 
-        await _dbContext.SaveChangesAsync(ct);
+        await _dbDbContext.SaveChangesAsync(ct);
     }
 
     private async Task<User?> GetUserAsync(string userName, CancellationToken ct = default)
     {
-        return await _dbContext.Users.FirstOrDefaultAsync(user => user.UserName == userName, ct);
+        return await _dbDbContext.Users.Where(user => user.UserName == userName)
+            .Include(user => user.AccessLevel)
+            .FirstOrDefaultAsync(ct);
     }
 }

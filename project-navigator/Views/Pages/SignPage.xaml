@@ -15,15 +15,7 @@
       d:DesignHeight="600"
       d:DesignWidth="1200">
     <Grid>
-        <Grid.RowDefinitions>
-            <RowDefinition Height="auto" />
-            <RowDefinition />
-        </Grid.RowDefinitions>
-        <ui:TitleBar Grid.Row="0"
-                     Height="auto" />
-
-        <ui:Card Grid.Row="1"
-                 VerticalAlignment="Center"
+        <ui:Card VerticalAlignment="Center"
                  HorizontalAlignment="Stretch"
                  Margin="48"
                  Padding="0"
@@ -50,14 +42,14 @@
                         <StackPanel Grid.Column="0"
                                     HorizontalAlignment="Stretch"
                                     Margin="0 0 16 0">
-                            <TextBlock Style="{StaticResource HeadlineTextBlockStyle}"
-                                       Margin="0 0 0 12">
+                            <ui:TextBlock Style="{StaticResource HeadlineTextBlockStyle}"
+                                          Margin="0 0 0 12">
                                 Вход
-                            </TextBlock>
+                            </ui:TextBlock>
 
-                            <TextBlock Margin="0 0 0 32">
+                            <ui:TextBlock Margin="0 0 0 32">
                                 Используйте аккаунт Навигатор проектов
-                            </TextBlock>
+                            </ui:TextBlock>
                         </StackPanel>
 
                         <StackPanel Grid.Column="1"
@@ -66,6 +58,7 @@
                                     MinWidth="300"
                                     MaxWidth="500">
                             <ui:TextBox PlaceholderText="Имя пользователя"
+                                        Height="auto"
                                         Text="{Binding ViewModel.Username,  Mode=OneWayToSource, UpdateSourceTrigger=PropertyChanged, ValidatesOnNotifyDataErrors=False}"
                                         Margin="0 0 0 24" />
 

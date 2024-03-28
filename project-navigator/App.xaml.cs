@@ -13,7 +13,6 @@ using project_navigator.Views.Pages.MainContent;
 using project_navigator.views.windows;
 using Serilog;
 using Wpf.Ui;
-using AppContext = project_navigator.db.AppContext;
 using MainContentViewModel = project_navigator.ViewModels.Pages.MainContentViewModel;
 
 namespace project_navigator;
@@ -24,7 +23,7 @@ public partial class App
     private static readonly IHost Host = Microsoft.Extensions.Hosting.Host.CreateDefaultBuilder()
         .ConfigureAppConfiguration(c =>
         {
-            c.SetBasePath(System.AppContext.BaseDirectory);
+            c.SetBasePath(AppContext.BaseDirectory);
             Log.Logger = new LoggerConfiguration()
                 .MinimumLevel.Information()
                 .WriteTo.Console()
@@ -50,10 +49,8 @@ public partial class App
                 services.AddSingleton<INotificationService, NotificationService>();
                 services.AddSingleton<IDbDataInitializer, DbDataInitializer>();
                 // Database
-                services.AddDbContext<AppContext>();
+                services.AddDbContext<AppDbContext>();
                 // Top-level pages
-                services.AddSingleton<MainContentPage>();
-                services.AddSingleton<MainContentViewModel>();
                 services.AddSingleton<DashboardPage>();
                 services.AddSingleton<DashboardViewModel>();
 

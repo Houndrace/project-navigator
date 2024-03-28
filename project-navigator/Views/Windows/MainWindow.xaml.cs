@@ -14,14 +14,15 @@ namespace project_navigator.views.windows;
 public partial class MainWindow
 {
     public MainWindow(IServiceProvider serviceProvider,
-        INavService navService, INotificationService notificationService)
+        INavService navService, INotificationService notificationService, IConfigurationService configurationService)
     {
-        SystemThemeWatcher.Watch(this, updateAccents: false);
+        SystemThemeWatcher.Watch(this, updateAccents:false);
         InitializeComponent();
 
         notificationService.SetInfoBarPresenter(InfoBarPresenter);
         navService.SetServiceProvider(serviceProvider);
         navService.SetFrame(RootFrame);
+
         var primaryBrush = (SolidColorBrush?)Application.Current.Resources["PrimaryBrush"];
         if (primaryBrush != null)
             ApplicationAccentColorManager.Apply(primaryBrush.Color);

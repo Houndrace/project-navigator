@@ -2,13 +2,13 @@ using System.ComponentModel.DataAnnotations;
 using System.Windows;
 using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
+using project_navigator.db;
 using project_navigator.Helpers;
 using project_navigator.services;
 using project_navigator.Services;
 using project_navigator.Views.Pages.MainContent;
 using Serilog;
 using Wpf.Ui.Controls;
-using AppContext = project_navigator.db.AppContext;
 
 namespace project_navigator.ViewModels.Pages;
 
@@ -16,7 +16,7 @@ public partial class SignViewModel : ObservableValidator
 {
     private readonly INavService _navService;
     private readonly INotificationService _notificationService;
-    private readonly AppContext _appContext;
+    private readonly AppDbContext _appDbContext;
     private readonly ISignService _signService;
 
     [ObservableProperty]
@@ -34,12 +34,12 @@ public partial class SignViewModel : ObservableValidator
     private string _username = "";
 
     public SignViewModel(ISignService signService, INavService navService, INotificationService notificationService,
-        AppContext appContext)
+        AppDbContext appDbContext)
     {
         _signService = signService;
         _navService = navService;
         _notificationService = notificationService;
-        _appContext = appContext;
+        _appDbContext = appDbContext;
 
         InitializeConnectionAsync().Wait();
     }
@@ -47,8 +47,8 @@ public partial class SignViewModel : ObservableValidator
 
     private Task InitializeConnectionAsync()
     {
-        if (!_appContext.Database.CanConnectAsync().Result)
-            _notificationService.OpenInfoBar(ValidationHelper.SignInErrorTitle,
+        if (!_appDbContext.Database.CanConnectAsync().Result)
+            _notificationService.OpenInfoBarAsync(ValidationHelper.DbConnectionErrorTitle,
                 ValidationHelper.DbConnectionErrorMessage,
                 InfoBarSeverity.Error);
 
@@ -58,12 +58,12 @@ public partial class SignViewModel : ObservableValidator
     [RelayCommand]
     private async Task SignInAsync()
     {
-        _notificationService.CloseInfoBar();
+        await _notificationService.CloseInfoBarAsync();
         ValidateAllProperties();
         if (HasErrors)
         {
             Log.Error("The user entered incorrect data");
-            _notificationService.OpenInfoBar(ValidationHelper.IncorrectDataTitle,
+            await _notificationService.OpenInfoBarAsync(ValidationHelper.IncorrectDataTitle,
                 ValidationHelper.ConcatenateErrors(GetErrors()),
                 InfoBarSeverity.Error);
             return;
@@ -72,11 +72,10 @@ public partial class SignViewModel : ObservableValidator
         try
         {
             ProgressBarVisibility = Visibility.Visible;
-            //await Task.Delay(TimeSpan.FromSeconds(5));
 
             if (!await _signService.SignInAsync(Username, Password))
             {
-                _notificationService.OpenInfoBar(ValidationHelper.SignInErrorTitle,
+                await _notificationService.OpenInfoBarAsync(ValidationHelper.SignInErrorTitle,
                     ValidationHelper.SignInErrorMessage,
                     InfoBarSeverity.Error);
                 return;
@@ -90,7 +89,7 @@ public partial class SignViewModel : ObservableValidator
         catch (Exception e)
         {
             Log.Error(e, "A Sign In error occurred");
-            _notificationService.OpenInfoBar(ValidationHelper.SignInErrorTitle,
+            await _notificationService.OpenInfoBarAsync(ValidationHelper.SignInErrorTitle,
                 ValidationHelper.DbConnectionErrorMessage,
                 InfoBarSeverity.Error);
             return;

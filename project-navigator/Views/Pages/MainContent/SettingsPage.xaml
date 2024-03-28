@@ -5,6 +5,7 @@
       xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
       xmlns:local="clr-namespace:project_navigator.Views.Pages.MainContent"
       xmlns:ui="http://schemas.lepo.co/wpfui/2022/xaml"
+      xmlns:b="http://schemas.microsoft.com/xaml/behaviors"
       mc:Ignorable="d"
       Title="SettingsPage"
       d:DataContext="{d:DesignInstance local:SettingsPage,
@@ -14,7 +15,31 @@
       Foreground="{DynamicResource TextFillColorPrimaryBrush}"
       d:DesignHeight="600"
       d:DesignWidth="1200">
-    <Grid Margin="32">
-        <TextBlock>Настройки</TextBlock>
+    <Grid>
+        <StackPanel>
+            <ui:TextBlock Style="{StaticResource HeadlineTextBlockStyle}"
+                          Margin="0 0 0 32">
+                Настройки
+            </ui:TextBlock>
+
+            <ui:TextBlock Style="{StaticResource TitleTextBlockStyle}"
+                          Text="Тема:"
+                          Margin="0 0 0 8" />
+            <StackPanel Orientation="Horizontal">
+                <ui:TextBlock VerticalAlignment="Center"
+                              Text="Выбрать тему:"
+                              Style="{StaticResource BodyTextBlockStyle}"
+                              Margin="0 0 8 0" />
+
+                <ComboBox ItemsSource="{Binding ViewModel.Themes}"
+                          SelectedItem="{Binding ViewModel.SelectedTheme}">
+                    <b:Interaction.Triggers>
+                        <b:EventTrigger EventName="SelectionChanged">
+                            <b:InvokeCommandAction Command="{Binding ViewModel.ChangeThemeCommand}" />
+                        </b:EventTrigger>
+                    </b:Interaction.Triggers>
+                </ComboBox>
+            </StackPanel>
+        </StackPanel>
     </Grid>
 </Page>

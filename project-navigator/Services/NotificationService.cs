@@ -5,11 +5,12 @@ namespace project_navigator.Services;
 public interface INotificationService
 {
     void SetInfoBarPresenter(InfoBar infoBar);
-    void OpenInfoBar(string title, string message,
+
+    Task OpenInfoBarAsync(string title, string message,
         InfoBarSeverity severity = InfoBarSeverity.Informational,
         TimeSpan? timeout = null);
 
-    void CloseInfoBar();
+    Task CloseInfoBarAsync();
 }
 
 public class NotificationService : INotificationService
@@ -21,7 +22,7 @@ public class NotificationService : INotificationService
         _infoBarPrersenter = infoBar;
     }
 
-    public void OpenInfoBar(string title, string message,
+    public async Task OpenInfoBarAsync(string title, string message,
         InfoBarSeverity severity = InfoBarSeverity.Informational,
         TimeSpan? timeout = null)
     {
@@ -30,13 +31,16 @@ public class NotificationService : INotificationService
         _infoBarPrersenter.Title = title;
         _infoBarPrersenter.Message = message;
         _infoBarPrersenter.Severity = severity;
+
+        await Task.Delay(500);
         _infoBarPrersenter.IsOpen = true;
     }
 
-    public void CloseInfoBar()
+    public Task CloseInfoBarAsync()
     {
         ArgumentNullException.ThrowIfNull(_infoBarPrersenter);
 
         _infoBarPrersenter.IsOpen = false;
+        return Task.CompletedTask;
     }
 }

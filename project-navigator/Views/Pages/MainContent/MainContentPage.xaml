@@ -15,18 +15,8 @@
       d:DesignHeight="600"
       d:DesignWidth="1200">
     <Grid>
-        <Grid.RowDefinitions>
-            <RowDefinition Height="Auto" />
-            <RowDefinition />
-        </Grid.RowDefinitions>
-        <ui:TitleBar Title="{StaticResource ProjectTitle}"
-                     Height="Auto">
-            <ui:TitleBar.Icon>
-                <ui:ImageIcon Source="pack://application:,,,/Branding/project_navigator.ico" />
-            </ui:TitleBar.Icon>
-        </ui:TitleBar>
         <ui:NavigationView Name="NavigationView"
-                           Grid.Row="1"
+                           Padding="32"
                            FooterMenuItemsSource="{Binding ViewModel.FooterMenuItems, Mode=OneWay}"
                            MenuItemsSource="{Binding ViewModel.MenuItems, Mode=OneWay}"
                            Transition="FadeInWithSlide"

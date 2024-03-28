@@ -51,7 +51,6 @@ public class ApplicationHostService : IHostedService
 
         var mainWindow = _serviceProvider.GetRequiredService<MainWindow>();
 
-        // TODO: Реализовать первый запуск после установки
         try
         {
             await _dataInitializer.InitializeAsync();
@@ -61,8 +60,8 @@ public class ApplicationHostService : IHostedService
             Log.Error(e, "Data initialization error");
         }
 
-        //_navService.Navigate<MainContentPage>();
         _navService.Navigate<SignPage>();
+        _navService.Navigate<MainContentPage>();
         mainWindow.Show();
     }
 }

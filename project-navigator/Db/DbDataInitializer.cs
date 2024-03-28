@@ -12,7 +12,7 @@ public interface IDbDataInitializer
 
 public class DbDataInitializer : IDbDataInitializer
 {
-    private readonly AppContext _dbContext;
+    private readonly AppDbContext _dbContext;
     private readonly ISignService _signService;
 
     private readonly IEnumerable<AccessLevel> _accessLevels = new List<AccessLevel>
@@ -27,7 +27,7 @@ public class DbDataInitializer : IDbDataInitializer
         }
     };
 
-    public DbDataInitializer(AppContext dbContext, ISignService signService)
+    public DbDataInitializer(AppDbContext dbContext, ISignService signService)
     {
         _dbContext = dbContext;
         _signService = signService;

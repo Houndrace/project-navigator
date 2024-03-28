@@ -7,8 +7,10 @@ public static class ValidationHelper
     public static readonly string IncorrectDataTitle = "Неверные данные";
     public static readonly string SignInErrorTitle = "Ошибка авторизации";
     public static readonly string SignInErrorMessage = "Неверное имя пользователя или пароль";
+    public static readonly string DbConnectionErrorTitle = "Ошибка базы данных";
+
     public static readonly string DbConnectionErrorMessage =
-        "Невозможно получить ответ от базы данных. Проверьте подключение к серверу.";
+        "Невозможно получить ответ от базы данных. Проверьте подключение к серверу";
 
 
     public static string ConcatenateErrors(IEnumerable<ValidationResult> errors)

@@ -1,7 +1,11 @@
 using System.IO;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
+using project_navigator.views.windows;
 using Serilog;
+using Wpf.Ui;
+using Wpf.Ui.Appearance;
+using Wpf.Ui.Controls;
 
 namespace project_navigator.services;
 
@@ -14,13 +18,28 @@ public interface IConfigurationService
 public class ConfigurationService : IConfigurationService
 {
     private const string ConfigFilePath = "config.json";
+    public const string SystemTheme = "System";
+    public const string LightTheme = "Light";
+    public const string DarkTheme = "Dark";
     private const string ConnectionStringsSection = "ConnectionStrings";
     private const string MainConnectionSection = "DefaultDbConnection";
-    private JObject _configuration;
+    private const string ThemePreferenceSection = "Theme";
+
+    private readonly JObject _configuration;
 
     public ConfigurationService()
     {
-        LoadConfig();
+        var loadConfigAttempt = LoadConfig();
+
+        if (loadConfigAttempt == null)
+        {
+            _configuration = CreateConfig();
+            SaveConfig();
+        }
+        else
+        {
+            _configuration = loadConfigAttempt;
+        }
     }
 
     public string? GetConnectionString()
@@ -45,30 +64,29 @@ public class ConfigurationService : IConfigurationService
         _configuration.WriteTo(writer);
     }
 
-    private void LoadConfig()
+    private JObject? LoadConfig()
     {
         try
         {
             using var jsonReader = new JsonTextReader(File.OpenText(ConfigFilePath));
-            _configuration = JObject.Load(jsonReader);
+            return JObject.Load(jsonReader);
         }
         catch (Exception e)
         {
             Log.Warning(e, "Ошибка загрузки конфигурации");
-            _configuration = CreateConfig();
-            SaveConfig();
+            return null;
         }
     }
 
     private JObject CreateConfig(string connectionString = "YourConnectionStringHere")
     {
-        var config = new JObject
+        return new JObject
         {
             [ConnectionStringsSection] = new JObject
             {
                 [MainConnectionSection] = connectionString
-            }
+            },
+            [ThemePreferenceSection] = "Light"
         };
-        return config;
     }
 }

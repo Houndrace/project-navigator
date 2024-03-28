@@ -9,7 +9,7 @@ using project_navigator.db;
 
 namespace project_navigator.db.migrations
 {
-    [DbContext(typeof(AppContext))]
+    [DbContext(typeof(AppDbContext))]
     partial class ProjNavContextModelSnapshot : ModelSnapshot
     {
         protected override void BuildModel(ModelBuilder modelBuilder)
